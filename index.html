@@ -123,8 +123,8 @@
 
     <script>
         // Fetch products from our Node.js backend
-        fetch('http://localhost:3000/products')
-            .then(res => res.json())
+        fetch('https://hardware-shop-ksvk.onrender.com/products')
+        then(res => res.json())
             .then(products => {
                 const grid = document.getElementById('products-grid');
                 grid.innerHTML = '';
