@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const { Pool } = require('pg');
 const cors = require('cors');
@@ -8,9 +10,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname)));
 
-// Connect to PostgreSQL database
+// Connect to PostgreSQL using environment variable
 const pool = new Pool({
-    connectionString: 'postgresql://hardware_shop_db_user:ccGK1r5jMATFmkFVm2bpjbVMC69f0Doy@dpg-d7d5sad7vvec73em4vr0-a.oregon-postgres.render.com/hardware_shop_db',
+    connectionString: process.env.DATABASE_URL,
     ssl: {
         rejectUnauthorized: false
     }
