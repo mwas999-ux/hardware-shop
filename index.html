@@ -122,9 +122,8 @@
     </div>
 
     <script>
-        // Fetch products from our Node.js backend
         fetch('https://hardware-shop-ksvk.onrender.com/products')
-        then(res => res.json())
+            .then(res => res.json())
             .then(products => {
                 const grid = document.getElementById('products-grid');
                 grid.innerHTML = '';
@@ -149,7 +148,6 @@
                     '<p class="loading">Failed to load products.</p>';
             });
 
-        // WhatsApp order function
         function orderProduct(name, price) {
             const message = `Hello, I'd like to order: ${name} - KES ${price}`;
             const whatsappURL = `https://wa.me/254700000000?text=${encodeURIComponent(message)}`;
