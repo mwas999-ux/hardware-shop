@@ -2,159 +2,1852 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hardware Shop</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mwangi Hardware | Building Kenya Starts Here</title>
+    <meta name="description"
+        content="Mwangi Hardware - premium online hardware store in Kenya with fast delivery, affordable prices, and quality guarantee." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
+        :root {
+            --bg: #0b0b0c;
+            --bg2: #111214;
+            --card: #ffffff;
+            --muted: #6b7280;
+            --text: #111827;
+            --line: #e5e7eb;
+            --accent: #ff6a00;
+            --accent2: #ff3d2e;
+            --soft: #fff4ec;
+            --good: #16a34a;
+            --warn: #f59e0b;
+            --shadow: 0 12px 35px rgba(0, 0, 0, .10);
+            --shadow2: 0 18px 45px rgba(0, 0, 0, .18);
+            --radius: 18px;
+            --transition: .3s ease;
+        }
+
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
+            font-family: Poppins, Segoe UI, sans-serif;
+            background: #f5f6f8;
+            color: var(--text);
+            overflow-x: hidden
         }
 
-        header {
-            background: #e65c00;
-            color: white;
-            padding: 20px;
-            text-align: center;
+        a {
+            text-decoration: none;
+            color: inherit
         }
 
-        header h1 {
-            font-size: 28px;
-        }
-
-        header p {
-            font-size: 14px;
-            margin-top: 5px;
+        img {
+            max-width: 100%;
+            display: block
         }
 
         .container {
-            max-width: 1100px;
-            margin: 30px auto;
-            padding: 0 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 18px
         }
 
-        h2 {
-            margin-bottom: 20px;
-            color: #333;
+        .section {
+            padding: 72px 0
         }
 
-        .products-grid {
+        .title {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 18px;
+            margin-bottom: 24px;
+            flex-wrap: wrap
+        }
+
+        .title h2 {
+            font-size: clamp(1.6rem, 2.3vw, 2.4rem);
+            line-height: 1.1
+        }
+
+        .title p {
+            color: var(--muted);
+            max-width: 720px
+        }
+
+        .btn {
+            border: none;
+            cursor: pointer;
+            border-radius: 14px;
+            padding: 14px 22px;
+            font-weight: 700;
+            transition: all var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .btn:hover {
+            transform: translateY(-3px)
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff;
+            box-shadow: 0 10px 25px rgba(255, 106, 0, .28)
+        }
+
+        .btn-light {
+            background: #fff;
+            color: var(--bg);
+            border: 1px solid var(--line)
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, .25)
+        }
+
+        .btn-success {
+            background: #25d366;
+            color: #fff
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: #fff
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: .75rem;
+            font-weight: 700
+        }
+
+        .badge.sale {
+            background: #ffe7e2;
+            color: #c0261b
+        }
+
+        .badge.new {
+            background: #e8fff1;
+            color: #0f7a36
+        }
+
+        .badge.hot {
+            background: #fff4d6;
+            color: #a16207
+        }
+
+        /* HEADER */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1200;
+            background: rgba(255, 255, 255, .92);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 1px 0 rgba(0, 0, 0, .06)
+        }
+
+        .header-top {
+            padding: 14px 0;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: 240px 1fr 320px;
+            gap: 16px;
+            align-items: center
         }
 
-        .product-card {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            letter-spacing: .5px
+        }
+
+        .logo-mark {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            display: grid;
+            place-items: center;
+            color: #fff;
+            box-shadow: 0 10px 20px rgba(255, 106, 0, .3)
+        }
+
+        .logo span {
+            display: block;
+            line-height: 1
+        }
+
+        .logo small {
+            display: block;
+            color: var(--muted);
+            font-weight: 600;
+            letter-spacing: 0
+        }
+
+        .search-wrap {
+            position: relative
+        }
+
+        .search {
+            width: 100%;
+            padding: 16px 20px 16px 52px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: #fff;
+            outline: none;
+            font-size: 1rem;
+            transition: all var(--transition);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, .03)
+        }
+
+        .search:focus {
+            border-color: rgba(255, 106, 0, .55);
+            box-shadow: 0 0 0 4px rgba(255, 106, 0, .12)
+        }
+
+        .search-wrap i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted)
+        }
+
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+
+        .action {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 13px;
+            border-radius: 14px;
+            background: #fff;
+            border: 1px solid var(--line);
+            transition: all var(--transition);
+            cursor: pointer;
+            font-family: Poppins, sans-serif;
+            font-size: .9rem
+        }
+
+        .action:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow)
+        }
+
+        .action i {
+            color: var(--accent)
+        }
+
+        .count {
+            position: absolute;
+            top: -8px;
+            right: -6px;
+            min-width: 21px;
+            height: 21px;
+            border-radius: 999px;
+            background: var(--accent2);
+            color: #fff;
+            display: grid;
+            place-items: center;
+            font-size: .72rem;
+            font-weight: 800;
+            border: 2px solid #fff
+        }
+
+        .nav {
+            padding: 0 0 14px;
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center
+        }
+
+        .nav a {
+            color: var(--text);
+            font-weight: 600;
+            padding: 8px 4px;
+            position: relative;
+            transition: all var(--transition)
+        }
+
+        .nav a:hover {
+            color: var(--accent)
+        }
+
+        .nav a:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: all var(--transition)
+        }
+
+        .nav a:hover:after {
+            width: 100%
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 76vh;
+            background: linear-gradient(90deg, rgba(0, 0, 0, .84), rgba(0, 0, 0, .45)), url("https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1920&q=80") center/cover;
+            color: #fff;
+            display: flex;
+            align-items: center
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            gap: 26px;
+            align-items: center;
+            padding: 34px 0
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4.9rem);
+            line-height: 1.02;
+            margin-bottom: 16px
+        }
+
+        .hero p {
+            font-size: 1.08rem;
+            max-width: 640px;
+            color: rgba(255, 255, 255, .86);
+            margin-bottom: 26px
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap
+        }
+
+        .hero-card {
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .14);
+            border-radius: 26px;
+            padding: 22px;
+            box-shadow: var(--shadow2)
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-top: 14px
+        }
+
+        .stat {
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 18px;
+            padding: 16px
+        }
+
+        .stat b {
+            display: block;
+            font-size: 1.3rem
+        }
+
+        .pill-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 18px
+        }
+
+        .pill {
+            padding: 9px 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .12);
+            font-size: .84rem
+        }
+
+        /* CARDS */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 18px
+        }
+
+        .card,
+        .product,
+        .deal,
+        .trust,
+        .shop-panel,
+        .cart-item {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow)
+        }
+
+        .card {
+            padding: 22px;
             text-align: center;
+            transition: all var(--transition);
+            cursor: pointer
         }
 
-        .product-card h3 {
-            font-size: 16px;
-            margin-bottom: 8px;
-            color: #333;
+        .card:hover,
+        .product:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow2)
         }
 
-        .category {
-            font-size: 12px;
-            color: #888;
-            margin-bottom: 8px;
-            text-transform: uppercase;
+        .icon {
+            width: 62px;
+            height: 62px;
+            border-radius: 18px;
+            margin: 0 auto 14px;
+            display: grid;
+            place-items: center;
+            background: var(--soft);
+            color: var(--accent);
+            font-size: 1.45rem
+        }
+
+        .card h3 {
+            font-size: 1.02rem;
+            margin-bottom: 7px
+        }
+
+        .card p {
+            color: var(--muted);
+            font-size: .92rem
+        }
+
+        /* DEALS */
+        .promo-grid {
+            display: grid;
+            grid-template-columns: 1.15fr .85fr;
+            gap: 18px
+        }
+
+        .deal-banner {
+            padding: 28px;
+            border-radius: 26px;
+            background: linear-gradient(135deg, #111, #3b0f08 60%, #ff5b1f);
+            color: #fff;
+            min-height: 280px
+        }
+
+        .deal-banner h3 {
+            font-size: 2rem;
+            margin-bottom: 8px
+        }
+
+        .countdown {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 18px 0
+        }
+
+        .timebox {
+            background: rgba(255, 255, 255, .12);
+            padding: 12px 14px;
+            border-radius: 16px;
+            min-width: 84px;
+            text-align: center
+        }
+
+        .timebox b {
+            font-size: 1.35rem;
+            display: block
+        }
+
+        .side-stack {
+            display: grid;
+            gap: 18px
+        }
+
+        .mini-banner {
+            padding: 24px;
+            border-radius: 22px;
+            background: #fff;
+            border: 1px solid var(--line)
+        }
+
+        .mini-banner strong {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 8px
+        }
+
+        /* SHOP */
+        .shop-layout {
+            display: grid;
+            grid-template-columns: 290px 1fr;
+            gap: 18px;
+            align-items: start
+        }
+
+        .shop-panel {
+            padding: 18px;
+            position: sticky;
+            top: 128px
+        }
+
+        .shop-panel h3 {
+            margin-bottom: 14px;
+            font-size: 1.1rem
+        }
+
+        .field,
+        select {
+            width: 100%;
+            padding: 13px 14px;
+            border-radius: 14px;
+            border: 1px solid var(--line);
+            outline: none;
+            background: #fff;
+            font-family: Poppins, sans-serif
+        }
+
+        .field:focus,
+        select:focus {
+            border-color: rgba(255, 106, 0, .6);
+            box-shadow: 0 0 0 3px rgba(255, 106, 0, .12)
+        }
+
+        .filter-group {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 16px
+        }
+
+        .products-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-bottom: 16px
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 18px
+        }
+
+        .product {
+            overflow: hidden;
+            transition: all var(--transition)
+        }
+
+        .product-media {
+            height: 220px;
+            background: linear-gradient(135deg, #fafafa, #ececec);
+            display: grid;
+            place-items: center;
+            position: relative
+        }
+
+        .product-media img {
+            max-width: 82%;
+            max-height: 82%;
+            object-fit: contain;
+            transition: all var(--transition)
+        }
+
+        .product:hover .product-media img {
+            transform: scale(1.06)
+        }
+
+        .tag {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+
+        .product-body {
+            padding: 18px
+        }
+
+        .product-body h3 {
+            font-size: 1.02rem;
+            margin-bottom: 7px;
+            min-height: 48px
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #f59e0b;
+            margin-bottom: 10px;
+            font-size: .92rem
         }
 
         .price {
-            font-size: 20px;
-            font-weight: bold;
-            color: #e65c00;
-            margin-bottom: 8px;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 14px
         }
 
-        .stock {
-            font-size: 12px;
-            color: #555;
-            margin-bottom: 15px;
+        .row {
+            display: flex;
+            gap: 10px
         }
 
-        .order-btn {
-            background: #25D366;
-            color: white;
+        .row .btn {
+            flex: 1;
+            justify-content: center;
+            padding: 12px 14px;
+            border-radius: 12px
+        }
+
+        /* TRUST */
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px
+        }
+
+        .trust {
+            padding: 22px
+        }
+
+        .trust i {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 12px
+        }
+
+        /* FOOTER */
+        footer {
+            background: linear-gradient(180deg, #101114, #050505);
+            color: #fff;
+            padding: 54px 0 24px
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.2fr .8fr .8fr 1fr;
+            gap: 18px
+        }
+
+        .footer-grid h4 {
+            margin-bottom: 12px
+        }
+
+        .footer-grid a,
+        .footer-grid p {
+            color: rgba(255, 255, 255, .78);
+            font-size: .95rem
+        }
+
+        .footer-grid li {
+            list-style: none;
+            margin-bottom: 10px
+        }
+
+        .payments {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px
+        }
+
+        .pay {
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .08)
+        }
+
+        /* CART SIDEBAR */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -420px;
+            width: min(420px, 94vw);
+            height: 100vh;
+            background: #fff;
+            z-index: 2000;
+            box-shadow: -18px 0 50px rgba(0, 0, 0, .25);
+            transition: all var(--transition);
+            display: flex;
+            flex-direction: column
+        }
+
+        .cart-sidebar.open {
+            right: 0
+        }
+
+        .cart-head,
+        .cart-foot {
+            padding: 18px;
+            border-bottom: 1px solid var(--line)
+        }
+
+        .cart-foot {
+            margin-top: auto;
+            border-top: 1px solid var(--line);
+            border-bottom: none
+        }
+
+        .cart-list {
+            padding: 14px;
+            overflow: auto;
+            display: grid;
+            gap: 12px;
+            flex: 1
+        }
+
+        .cart-item {
+            display: grid;
+            grid-template-columns: 72px 1fr auto;
+            gap: 12px;
+            padding: 12px
+        }
+
+        .cart-item img {
+            width: 72px;
+            height: 72px;
+            object-fit: contain;
+            background: #f7f7f7;
+            border-radius: 14px;
+            padding: 8px
+        }
+
+        .qty {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px
+        }
+
+        .qty button {
+            width: 28px;
+            height: 28px;
             border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
+            border-radius: 8px;
+            background: #f3f4f6;
             cursor: pointer;
-            font-size: 13px;
-            width: 100%;
+            font-size: 1rem
         }
 
-        .order-btn:hover {
-            background: #1ebe57;
+        .close-btn {
+            border: none;
+            background: #f3f4f6;
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            cursor: pointer
         }
 
-        .loading {
+        /* OVERLAY */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .45);
+            opacity: 0;
+            pointer-events: none;
+            transition: all var(--transition);
+            z-index: 1500
+        }
+
+        .overlay.show {
+            opacity: 1;
+            pointer-events: auto
+        }
+
+        /* WHATSAPP */
+        .whatsapp {
+            position: fixed;
+            right: 18px;
+            bottom: 92px;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: #25d366;
+            color: #fff;
+            display: grid;
+            place-items: center;
+            box-shadow: 0 14px 28px rgba(37, 211, 102, .35);
+            z-index: 1600;
+            font-size: 1.6rem
+        }
+
+        /* COOKIE */
+        .cookie {
+            position: fixed;
+            left: 18px;
+            right: 18px;
+            bottom: 18px;
+            z-index: 1700;
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #111;
+            color: #fff;
+            border-radius: 20px;
+            padding: 18px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            box-shadow: var(--shadow2)
+        }
+
+        .cookie.show {
+            display: flex
+        }
+
+        .cookie p {
+            color: rgba(255, 255, 255, .82);
+            font-size: .94rem;
+            margin: 0
+        }
+
+        /* ── AUTH MODAL ── */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .55);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 18px
+        }
+
+        .modal-overlay.show {
+            display: flex
+        }
+
+        .modal {
+            background: #fff;
+            border-radius: 24px;
+            width: min(460px, 100%);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, .3);
+            overflow: hidden;
+            animation: slideUp .3s ease
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .modal-head {
+            padding: 24px 24px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .modal-head h2 {
+            font-size: 1.4rem
+        }
+
+        .modal-close {
+            border: none;
+            background: #f3f4f6;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem
+        }
+
+        .modal-tabs {
+            display: flex;
+            padding: 18px 24px 0;
+            gap: 0;
+            border-bottom: 1px solid var(--line)
+        }
+
+        .modal-tab {
+            flex: 1;
+            padding: 10px;
             text-align: center;
-            padding: 50px;
-            color: #888;
+            font-weight: 700;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all .2s;
+            font-size: .95rem;
+            color: var(--muted)
+        }
+
+        .modal-tab.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent)
+        }
+
+        .modal-body {
+            padding: 24px
+        }
+
+        .form-group {
+            margin-bottom: 16px
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: .88rem;
+            margin-bottom: 7px;
+            color: var(--text)
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 13px 16px;
+            border-radius: 14px;
+            border: 1.5px solid var(--line);
+            outline: none;
+            font-family: Poppins, sans-serif;
+            font-size: .95rem;
+            transition: border .2s
+        }
+
+        .form-group input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(255, 106, 0, .12)
+        }
+
+        .form-hint {
+            font-size: .8rem;
+            color: var(--muted);
+            margin-top: 5px
+        }
+
+        .verify-box {
+            background: #f0fff4;
+            border: 1px solid #bbf7d0;
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 16px;
+            font-size: .9rem;
+            color: #15803d;
+            display: none
+        }
+
+        .verify-box.show {
+            display: block
+        }
+
+        .auth-divider {
+            text-align: center;
+            color: var(--muted);
+            font-size: .85rem;
+            margin: 14px 0;
+            position: relative
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 42%;
+            height: 1px;
+            background: var(--line)
+        }
+
+        .auth-divider::before {
+            left: 0
+        }
+
+        .auth-divider::after {
+            right: 0
+        }
+
+        .user-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            background: var(--soft);
+            border-radius: 999px;
+            font-size: .9rem;
+            font-weight: 600;
+            color: var(--accent)
+        }
+
+        /* MISC */
+        .burger {
+            display: none
+        }
+
+        .mobile-nav {
+            display: none
+        }
+
+        .empty {
+            padding: 32px;
+            text-align: center;
+            color: var(--muted)
+        }
+
+        .muted {
+            color: var(--muted)
+        }
+
+        @media(max-width:1100px) {
+            .header-top {
+                grid-template-columns: 1fr;
+                gap: 12px
+            }
+
+            .actions {
+                justify-content: flex-start
+            }
+
+            .shop-layout,
+            .hero-grid,
+            .promo-grid,
+            .footer-grid {
+                grid-template-columns: 1fr
+            }
+
+            .shop-panel {
+                position: static
+            }
+        }
+
+        @media(max-width:768px) {
+
+            .nav,
+            .actions {
+                display: none
+            }
+
+            .burger {
+                display: inline-grid;
+                place-items: center;
+                width: 44px;
+                height: 44px;
+                border-radius: 12px;
+                border: 1px solid var(--line);
+                background: #fff
+            }
+
+            .mobile-nav {
+                display: grid;
+                gap: 10px;
+                padding: 0 0 14px
+            }
+
+            .mobile-nav a {
+                padding: 12px 14px;
+                background: #fff;
+                border: 1px solid var(--line);
+                border-radius: 14px;
+                font-weight: 600
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 42px 0
+            }
+
+            .hero h1 {
+                font-size: 2.35rem
+            }
+
+            .stat-grid {
+                grid-template-columns: 1fr
+            }
+
+            .cookie {
+                flex-direction: column;
+                align-items: flex-start
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <header>
-        <h1>🔨 Kamau Hardware Shop</h1>
-        <p>Quality building materials at the best prices</p>
+    <!-- ── HEADER ── -->
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <a href="#" class="logo">
+                    <div class="logo-mark"><i class="fa-solid fa-hammer"></i></div>
+                    <span>MWANGI HARDWARE<small>Building Kenya Starts Here</small></span>
+                </a>
+                <div class="search-wrap">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input id="searchInput" class="search" type="text"
+                        placeholder="Search products, brands, tools, materials..." />
+                </div>
+                <div class="actions">
+                    <!-- Account button — changes based on login state -->
+                    <button class="action" id="accountBtn" type="button"><i class="fa-regular fa-user"></i><span
+                            id="accountLabel">Login</span></button>
+                    <a class="action" href="#contact"><i class="fa-solid fa-phone"></i><span>Contact</span></a>
+                    <button class="action" id="cartBtn" type="button"><i
+                            class="fa-solid fa-cart-shopping"></i><span>Cart</span><span id="cartCount"
+                            class="count">0</span></button>
+                </div>
+            </div>
+            <div class="nav">
+                <a href="#categories">Tools</a><a href="#categories">Building Materials</a><a
+                    href="#categories">Plumbing</a>
+                <a href="#categories">Electrical</a><a href="#categories">Paint & Finishes</a>
+                <a href="#categories">Tiles & Flooring</a><a href="#categories">Kitchen & Bathroom</a>
+            </div>
+            <button class="burger" id="burgerBtn"><i class="fa-solid fa-bars"></i></button>
+            <div class="mobile-nav" id="mobileNav" style="display:none">
+                <a href="#categories">Tools</a><a href="#categories">Building Materials</a><a
+                    href="#categories">Plumbing</a>
+                <a href="#categories">Electrical</a><a href="#categories">Paint & Finishes</a>
+            </div>
+        </div>
     </header>
 
-    <div class="container">
-        <h2>Our Products</h2>
-        <div class="products-grid" id="products-grid">
-            <p class="loading">Loading products...</p>
+    <!-- ── HERO ── -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div>
+                    <span class="badge sale">Premium Kenya Hardware</span>
+                    <h1>Building Kenya Starts Here</h1>
+                    <p>Shop trusted hardware, building materials, tools, plumbing, electricals, tiles, paint and more —
+                        fast delivery, real prices, no middleman.</p>
+                    <div class="hero-actions">
+                        <a href="#shop" class="btn btn-primary">Shop Now <i class="fa-solid fa-arrow-right"></i></a>
+                        <a href="#categories" class="btn btn-outline">Explore Categories</a>
+                    </div>
+                    <div class="pill-row">
+                        <span class="pill"><i class="fa-solid fa-truck-fast"></i> Fast Delivery in Kenya</span>
+                        <span class="pill"><i class="fa-solid fa-shield-heart"></i> Quality Guarantee</span>
+                        <span class="pill"><i class="fa-solid fa-mobile-screen-button"></i> M-Pesa Ready</span>
+                    </div>
+                </div>
+                <div class="hero-card">
+                    <img alt="Construction"
+                        src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80">
+                    <div class="stat-grid">
+                        <div class="stat"><b>500+</b><span>Products</span></div>
+                        <div class="stat"><b>24/7</b><span>Support</span></div>
+                        <div class="stat"><b>Same Day</b><span>Nairobi Delivery</span></div>
+                        <div class="stat"><b>Secure</b><span>Checkout</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CATEGORIES ── -->
+    <section id="categories" class="section">
+        <div class="container">
+            <div class="title">
+                <div>
+                    <h2>Shop by Category</h2>
+                    <p>Built around real hardware inventory for contractors, homeowners, and builders.</p>
+                </div>
+            </div>
+            <div class="cards" id="categoryGrid"></div>
+        </div>
+    </section>
+
+    <!-- ── FEATURED ── -->
+    <section class="section">
+        <div class="container">
+            <div class="title">
+                <div>
+                    <h2>Featured Products</h2>
+                    <p>Popular items for construction, repairs, and finishing work across Kenya.</p>
+                </div>
+            </div>
+            <div class="products" id="featuredGrid"></div>
+        </div>
+    </section>
+
+    <!-- ── DEALS ── -->
+    <section class="section deals">
+        <div class="container">
+            <div class="title">
+                <div>
+                    <h2>Deals & Promotions</h2>
+                    <p>Flash sales and limited stock offers.</p>
+                </div>
+            </div>
+            <div class="promo-grid">
+                <div class="deal-banner">
+                    <span class="badge sale">Flash Sale</span>
+                    <h3>Up to 35% Off on Tools & Equipment</h3>
+                    <p>Limited stock on selected drills, safety gear, and workshop essentials.</p>
+                    <div class="countdown">
+                        <div class="timebox"><b id="hh">12</b><span>Hours</span></div>
+                        <div class="timebox"><b id="mm">45</b><span>Minutes</span></div>
+                        <div class="timebox"><b id="ss">20</b><span>Seconds</span></div>
+                    </div>
+                    <a href="#shop" class="btn btn-light">Shop Limited Offers</a>
+                </div>
+                <div class="side-stack">
+                    <div class="mini-banner"><span class="badge hot">Limited Stock</span><strong>Bulk Cement
+                            Deals</strong>
+                        <p class="muted">Best for contractors and site supply.</p>
+                    </div>
+                    <div class="mini-banner"><span class="badge new">New Arrivals</span><strong>Tiles, Paint &
+                            Finishes</strong>
+                        <p class="muted">Fresh stock for renovation projects.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── SHOP ── -->
+    <section id="shop" class="section">
+        <div class="container">
+            <div class="title">
+                <div>
+                    <h2>Shop Section</h2>
+                    <p>Filter, sort, search, and add products to cart.</p>
+                </div>
+            </div>
+            <div class="shop-layout">
+                <aside class="shop-panel">
+                    <h3>Filters</h3>
+                    <div class="filter-group">
+                        <input id="priceFilter" class="field" type="number" placeholder="Max price (KES)" />
+                        <select id="categoryFilter">
+                            <option value="all">All Categories</option>
+                            <option>Tools</option>
+                            <option>Building Materials</option>
+                            <option>Plumbing</option>
+                            <option>Electrical</option>
+                            <option>Paint & Finishes</option>
+                            <option>Tiles & Flooring</option>
+                            <option>Kitchen & Bathroom</option>
+                            <option>Hardware Supplies</option>
+                            <option>Wood Products</option>
+                        </select>
+                        <select id="brandFilter">
+                            <option value="all">All Brands</option>
+                            <option>Makita</option>
+                            <option>Bamburi</option>
+                            <option>Rex</option>
+                            <option>Duracoat</option>
+                            <option>National</option>
+                            <option>Generic</option>
+                        </select>
+                        <select id="sortFilter">
+                            <option value="best">Best Selling</option>
+                            <option value="low">Price Low–High</option>
+                            <option value="high">Price High–Low</option>
+                        </select>
+                        <button class="btn btn-primary" id="clearFilters">Clear Filters</button>
+                    </div>
+                </aside>
+                <main>
+                    <div class="products-top">
+                        <div><strong id="resultCount">0</strong> products found</div>
+                        <div class="muted">Showing all matching products</div>
+                    </div>
+                    <div class="products" id="shopGrid"></div>
+                    <div id="emptyState" class="empty" style="display:none">No products match your filters.</div>
+                </main>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── WHY US ── -->
+    <section class="section">
+        <div class="container">
+            <div class="title">
+                <div>
+                    <h2>Why Choose Us</h2>
+                    <p>A reliable hardware experience for Kenyan buyers.</p>
+                </div>
+            </div>
+            <div class="trust-grid">
+                <div class="trust"><i class="fa-solid fa-truck-fast"></i>
+                    <h3>Fast delivery in Kenya</h3>
+                    <p>Built for Nairobi and beyond, quick dispatch and reliable updates.</p>
+                </div>
+                <div class="trust"><i class="fa-solid fa-tags"></i>
+                    <h3>Affordable pricing</h3>
+                    <p>Competitive pricing on everyday tools, building materials, and finishes.</p>
+                </div>
+                <div class="trust"><i class="fa-solid fa-shield-halved"></i>
+                    <h3>Quality guarantee</h3>
+                    <p>Curated products from trusted brands and practical site-ready items.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── FOOTER / CONTACT ── -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h4>Mwangi Hardware</h4>
+                    <p>Premium online hardware store in Kenya for tools, materials, plumbing, electrical, tiles, paint,
+                        and more.</p>
+                    <div class="payments">
+                        <span class="pay">M-Pesa</span><span class="pay">Visa</span><span class="pay">Mastercard</span>
+                    </div>
+                </div>
+                <div>
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#categories">Categories</a></li>
+                        <li><a href="#shop">Shop</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Contact Info</h4>
+                    <p>Nairobi, Kenya</p>
+                    <p>📞 <a href="tel:0799747941" style="color:rgba(255,255,255,.78)">0799 747 941</a></p>
+                    <p>📧 <a href="mailto:freddiemwas999@gmail.com"
+                            style="color:rgba(255,255,255,.78)">freddiemwas999@gmail.com</a></p>
+                </div>
+                <div>
+                    <h4>Follow Us</h4>
+                    <p><a href="https://instagram.com/_mwa_s" target="_blank" style="color:rgba(255,255,255,.78)">📸
+                            Instagram: @_mwa_s</a></p>
+                    <p style="margin-top:8px"><a href="https://wa.me/254799747941" target="_blank"
+                            style="color:#25d366;font-weight:700">💬 WhatsApp Us</a></p>
+                    <p style="margin-top:12px;color:rgba(255,255,255,.5);font-size:.85rem">M-Pesa STK Push available on
+                        request.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ── OVERLAY ── -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- ── CART SIDEBAR ── -->
+    <aside class="cart-sidebar" id="cartSidebar">
+        <div class="cart-head" style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+            <div>
+                <h3>🛒 Your Cart</h3>
+                <div class="muted"><span id="cartItemsLabel">0</span> items</div>
+            </div>
+            <button class="close-btn" id="closeCart"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="cart-list" id="cartList"></div>
+        <div class="cart-foot">
+            <div style="display:flex;justify-content:space-between;margin-bottom:14px"><strong>Total</strong><strong>KES
+                    <span id="cartTotal">0</span></strong></div>
+            <!-- WhatsApp Checkout Button -->
+            <button class="btn btn-success"
+                style="width:100%;justify-content:center;margin-bottom:10px;border-radius:14px;padding:14px"
+                id="checkoutBtn">
+                <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
+            </button>
+            <p style="font-size:.8rem;color:var(--muted);text-align:center">Your cart items will be sent directly to us
+                on WhatsApp</p>
+        </div>
+    </aside>
+
+    <!-- ── WHATSAPP FLOAT ── -->
+    <a class="whatsapp"
+        href="https://wa.me/254799747941?text=Hello%20Mwangi%20Hardware!%20I%20need%20help%20with%20products%20and%20delivery."
+        target="_blank" aria-label="WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- ── COOKIE BANNER ── -->
+    <div class="cookie" id="cookieBanner">
+        <p>We use cookies to improve shopping, remember cart items, and analyze traffic.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-light" id="rejectCookies">Reject</button>
+            <button class="btn btn-primary" id="acceptCookies">Accept</button>
+        </div>
+    </div>
+
+    <!-- ── AUTH MODAL ── -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal">
+            <div class="modal-head">
+                <h2 id="modalTitle">Welcome Back</h2>
+                <button class="modal-close" id="closeModal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-tabs">
+                <div class="modal-tab active" id="loginTab" onclick="switchTab('login')">Login</div>
+                <div class="modal-tab" id="registerTab" onclick="switchTab('register')">Register</div>
+            </div>
+            <div class="modal-body">
+
+                <!-- LOGIN FORM -->
+                <div id="loginForm">
+                    <div class="form-group">
+                        <label>Phone Number or Email</label>
+                        <input type="text" id="loginIdentifier" placeholder="0799747941 or email@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="loginPassword" placeholder="Enter your password">
+                    </div>
+                    <button class="btn btn-primary" style="width:100%;justify-content:center;margin-bottom:12px"
+                        onclick="doLogin()">
+                        <i class="fa-solid fa-right-to-bracket"></i> Login
+                    </button>
+                    <div class="auth-divider">or</div>
+                    <p style="text-align:center;font-size:.88rem;color:var(--muted);margin-top:12px">
+                        Don't have an account? <span style="color:var(--accent);cursor:pointer;font-weight:700"
+                            onclick="switchTab('register')">Register here</span>
+                    </p>
+                </div>
+
+                <!-- REGISTER FORM -->
+                <div id="registerForm" style="display:none">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="regName" placeholder="John Kamau">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" id="regPhone" placeholder="0799 747 941">
+                        <div class="form-hint">Used for order verification and WhatsApp updates</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="regEmail" placeholder="yourname@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="regPassword" placeholder="Create a strong password">
+                    </div>
+                    <div class="form-group">
+                        <label>Verify Account Via</label>
+                        <select id="verifyMethod"
+                            style="border-radius:14px;border:1.5px solid var(--line);padding:13px 14px;outline:none;width:100%;font-family:Poppins,sans-serif">
+                            <option value="phone">Phone (SMS code)</option>
+                            <option value="email">Email (verification link)</option>
+                        </select>
+                    </div>
+                    <div class="verify-box" id="verifyBox">
+                        ✅ A verification code has been sent. Please check your <span id="verifyTarget">phone</span>.
+                    </div>
+                    <button class="btn btn-primary" style="width:100%;justify-content:center;margin-bottom:12px"
+                        onclick="doRegister()">
+                        <i class="fa-solid fa-user-plus"></i> Create Account
+                    </button>
+                    <p style="text-align:center;font-size:.88rem;color:var(--muted);margin-top:12px">
+                        Already have an account? <span style="color:var(--accent);cursor:pointer;font-weight:700"
+                            onclick="switchTab('login')">Login here</span>
+                    </p>
+                </div>
+
+            </div>
         </div>
     </div>
 
     <script>
-        fetch('https://hardware-shop-ksvk.onrender.com/products')
-            .then(res => res.json())
-            .then(products => {
-                const grid = document.getElementById('products-grid');
-                grid.innerHTML = '';
+        /* ── PRODUCTS DATA ── */
+        const products = [
+            { id: 1, name: "Claw Hammer 16oz", price: 850, rating: 4.7, category: "Tools", brand: "Generic", badge: "SALE", img: "https://images.unsplash.com/photo-1581147036324-c6c83a1b7c01?auto=format&fit=crop&w=900&q=80", desc: "Heavy duty drop-forged steel hammer. Ergonomic grip handle." },
+            { id: 2, name: "Electric Drill Machine", price: 6800, rating: 4.8, category: "Tools", brand: "Makita", badge: "HOT", img: "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=900&q=80", desc: "750W variable speed drill. Ideal for masonry, wood and metal." },
+            { id: 3, name: "Bamburi Cement 50kg", price: 780, rating: 4.6, category: "Building Materials", brand: "Bamburi", badge: "NEW", img: "https://images.unsplash.com/photo-1597008641621-cefd7f09d3ae?auto=format&fit=crop&w=900&q=80", desc: "OPC 42.5N Portland cement. Trusted for all construction work." },
+            { id: 4, name: "uPVC Water Pipe 1/2\"", price: 420, rating: 4.5, category: "Plumbing", brand: "Generic", badge: "SALE", img: "https://images.unsplash.com/photo-1581093458791-9f3c3900aa2b?auto=format&fit=crop&w=900&q=80", desc: "High pressure uPVC pipe. 3M length, suitable for water supply." },
+            { id: 5, name: "Wash Hand Basin", price: 4900, rating: 4.7, category: "Kitchen & Bathroom", brand: "Rex", badge: "NEW", img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=80", desc: "Ceramic wash basin. Universal fit, white gloss finish." },
+            { id: 6, name: "Tile Adhesive 20kg", price: 1200, rating: 4.6, category: "Tiles & Flooring", brand: "Generic", badge: "HOT", img: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=900&q=80", desc: "White tile adhesive. For floor and wall tiles up to 60x60cm." },
+            { id: 7, name: "Duracoat Paint 4L", price: 1850, rating: 4.8, category: "Paint & Finishes", brand: "Duracoat", badge: "SALE", img: "https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?auto=format&fit=crop&w=900&q=80", desc: "Premium interior emulsion. Washable, smooth finish, long lasting." },
+            { id: 8, name: "Screwdriver Set 6pc", price: 1450, rating: 4.4, category: "Hardware Supplies", brand: "Generic", badge: "NEW", img: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=900&q=80", desc: "6-piece screwdriver set. Flat and Phillips heads, comfort grip." },
+            { id: 9, name: "Wheelbarrow", price: 6200, rating: 4.7, category: "Tools", brand: "National", badge: "HOT", img: "https://images.unsplash.com/photo-1583878026789-79a2f03b4c53?auto=format&fit=crop&w=900&q=80", desc: "Heavy duty steel wheelbarrow. 100L capacity, pneumatic tyre." },
+            { id: 10, name: "Padlock 60mm", price: 950, rating: 4.5, category: "Hardware Supplies", brand: "Generic", badge: "SALE", img: "https://images.unsplash.com/photo-1519400197429-404ae1a1e0f2?auto=format&fit=crop&w=900&q=80", desc: "Heavy brass padlock. Double locking shackle, 3 keys included." },
+            { id: 11, name: "Safety Gloves & Helmet", price: 2300, rating: 4.6, category: "Tools", brand: "Generic", badge: "NEW", img: "https://images.unsplash.com/photo-1593030103066-0043e8d1f0ed?auto=format&fit=crop&w=900&q=80", desc: "PPE combo set. Hard hat and heavy duty work gloves." },
+            { id: 12, name: "MDF Board 18mm", price: 3100, rating: 4.5, category: "Wood Products", brand: "Generic", badge: "HOT", img: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=900&q=80", desc: "Medium density fibreboard. 8x4ft sheet, smooth both sides." },
+            { id: 13, name: "Angle Grinder 4.5\"", price: 3800, rating: 4.7, category: "Tools", brand: "Makita", badge: "HOT", img: "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=900&q=80", desc: "850W angle grinder with safety guard. Cutting and grinding." },
+            { id: 14, name: "2.5mm Cable 100M Roll", price: 6500, rating: 4.8, category: "Electrical", brand: "Generic", badge: "NEW", img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80", desc: "PVC insulated copper cable. Suitable for domestic wiring." },
+            { id: 15, name: "MCB Switch 32A", price: 420, rating: 4.6, category: "Electrical", brand: "National", badge: "SALE", img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80", desc: "Miniature circuit breaker for overload protection. DIN rail." },
+            { id: 16, name: "Corrugated Iron Sheet 30G", price: 980, rating: 4.7, category: "Building Materials", brand: "Generic", badge: "HOT", img: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=900&q=80", desc: "Galvanized iron roofing sheet. 3M length, weather resistant." },
+            { id: 17, name: "60x60 Porcelain Floor Tiles", price: 1850, rating: 4.8, category: "Tiles & Flooring", brand: "Generic", badge: "NEW", img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=80", desc: "Gloss finish Carrara White tiles. Scratch resistant, heavy duty." },
+            { id: 18, name: "Ball Valve Brass 1/2\"", price: 380, rating: 4.5, category: "Plumbing", brand: "Rex", badge: "SALE", img: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=900&q=80", desc: "Heavy duty brass ball valve. Quarter turn on/off." },
+            { id: 19, name: "Barbed Wire 400M Roll", price: 5500, rating: 4.6, category: "Hardware Supplies", brand: "Generic", badge: "HOT", img: "https://images.unsplash.com/photo-1558002038-1055e2dae1d7?auto=format&fit=crop&w=900&q=80", desc: "High tensile galvanized barbed wire. 2-strand twist." },
+            { id: 20, name: "Cypress Timber 2x4", price: 480, rating: 4.5, category: "Wood Products", brand: "Generic", badge: "NEW", img: "https://images.unsplash.com/photo-1541123437800-1bb1317badc2?auto=format&fit=crop&w=900&q=80", desc: "Kiln-dried cypress timber. For roofing, formwork and carpentry." },
+            { id: 21, name: "Weathershield Paint 4L", price: 2200, rating: 4.7, category: "Paint & Finishes", brand: "Duracoat", badge: "HOT", img: "https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?auto=format&fit=crop&w=900&q=80", desc: "Exterior paint, UV protected for Kenyan climate conditions." },
+            { id: 22, name: "Flush Tank Complete Set", price: 2200, rating: 4.6, category: "Kitchen & Bathroom", brand: "Rex", badge: "NEW", img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=80", desc: "Complete toilet cistern with all fittings. Universal fit." },
+            { id: 23, name: "Steel Nails 4inch 1kg", price: 120, rating: 4.5, category: "Hardware Supplies", brand: "Generic", badge: "SALE", img: "https://images.unsplash.com/photo-1603696048229-82dbb00c0b75?auto=format&fit=crop&w=900&q=80", desc: "Heavy duty galvanized steel nails for timber framing." },
+            { id: 24, name: "Tape Measure 5M", price: 350, rating: 4.4, category: "Tools", brand: "Generic", badge: "NEW", img: "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=900&q=80", desc: "Auto-lock tape measure with magnetic tip. Belt clip included." },
+        ];
 
-                products.forEach(product => {
-                    const card = document.createElement('div');
-                    card.className = 'product-card';
-                    card.innerHTML = `
-            <h3>${product.name}</h3>
-            <p class="category">${product.category}</p>
-            <p class="price">KES ${product.price}</p>
-            <p class="stock">Stock: ${product.stock} units</p>
-            <button class="order-btn" onclick="orderProduct('${product.name}', '${product.price}')">
-              🛒 Order via WhatsApp
-            </button>
-          `;
-                    grid.appendChild(card);
-                });
-            })
-            .catch(err => {
-                document.getElementById('products-grid').innerHTML =
-                    '<p class="loading">Failed to load products.</p>';
-            });
+        const categories = [
+            { name: "Wood Products", icon: "fa-tree", desc: "Plywood, MDF, boards" },
+            { name: "Sanitary Items", icon: "fa-toilet", desc: "Toilets, basins, taps" },
+            { name: "Kitchen & Bathroom", icon: "fa-kitchen-set", desc: "Sinks, fittings, cisterns" },
+            { name: "Hardware Supplies", icon: "fa-screwdriver-wrench", desc: "Nails, screws, padlocks, wire" },
+            { name: "Tiles & Flooring", icon: "fa-border-all", desc: "Tiles, granite, adhesive" },
+            { name: "Electrical", icon: "fa-bolt", desc: "Wires, switches, MCBs" },
+            { name: "Paint & Finishes", icon: "fa-paint-roller", desc: "Emulsion, gloss, weathershield" },
+            { name: "Tools", icon: "fa-screwdriver", desc: "Drills, hammers, safety gear" },
+            { name: "Plumbing", icon: "fa-faucet", desc: "Pipes, valves, fittings" },
+            { name: "Building Materials", icon: "fa-building", desc: "Cement, iron sheets, roofing" },
+        ];
 
-        function orderProduct(name, price) {
-            const message = `Hello, I'd like to order: ${name} - KES ${price}`;
-            const whatsappURL = `https://wa.me/254700000000?text=${encodeURIComponent(message)}`;
-            window.open(whatsappURL);
+        /* ── STATE ── */
+        const state = { cart: [], search: "", category: "all", brand: "all", sort: "best", maxPrice: "" };
+        let currentUser = JSON.parse(localStorage.getItem("mw_user") || "null");
+
+        /* ── DOM REFS ── */
+        const featuredGrid = document.getElementById("featuredGrid");
+        const shopGrid = document.getElementById("shopGrid");
+        const categoryGrid = document.getElementById("categoryGrid");
+        const cartList = document.getElementById("cartList");
+        const cartTotal = document.getElementById("cartTotal");
+        const cartCount = document.getElementById("cartCount");
+        const cartItemsLabel = document.getElementById("cartItemsLabel");
+        const cartSidebar = document.getElementById("cartSidebar");
+        const overlay = document.getElementById("overlay");
+
+        /* ── AUTH ── */
+        function updateAccountUI() {
+            const btn = document.getElementById("accountBtn");
+            const label = document.getElementById("accountLabel");
+            if (currentUser) {
+                label.textContent = currentUser.name.split(" ")[0];
+                btn.querySelector("i").className = "fa-solid fa-user-check";
+                btn.style.color = "var(--accent)";
+                btn.onclick = () => {
+                    if (confirm(`Logout as ${currentUser.name}?`)) {
+                        currentUser = null;
+                        localStorage.removeItem("mw_user");
+                        updateAccountUI();
+                    }
+                };
+            } else {
+                label.textContent = "Login";
+                btn.querySelector("i").className = "fa-regular fa-user";
+                btn.onclick = openAuth;
+            }
         }
-    </script>
 
+        function openAuth() {
+            document.getElementById("authModal").classList.add("show");
+        }
+
+        function closeAuth() {
+            document.getElementById("authModal").classList.remove("show");
+        }
+
+        document.getElementById("closeModal").onclick = closeAuth;
+        document.getElementById("accountBtn").onclick = openAuth;
+
+        // Close modal on overlay click
+        document.getElementById("authModal").addEventListener("click", function (e) {
+            if (e.target === this) closeAuth();
+        });
+
+        function switchTab(tab) {
+            document.getElementById("loginForm").style.display = tab === "login" ? "block" : "none";
+            document.getElementById("registerForm").style.display = tab === "register" ? "block" : "none";
+            document.getElementById("loginTab").classList.toggle("active", tab === "login");
+            document.getElementById("registerTab").classList.toggle("active", tab === "register");
+            document.getElementById("modalTitle").textContent = tab === "login" ? "Welcome Back" : "Create Account";
+        }
+
+        function doLogin() {
+            const id = document.getElementById("loginIdentifier").value.trim();
+            const pw = document.getElementById("loginPassword").value;
+            if (!id || !pw) { alert("Please fill in all fields."); return; }
+
+            // Check local storage for registered users
+            const users = JSON.parse(localStorage.getItem("mw_users") || "[]");
+            const user = users.find(u => (u.phone === id || u.email === id) && u.password === pw);
+
+            if (user) {
+                currentUser = { name: user.name, phone: user.phone, email: user.email };
+                localStorage.setItem("mw_user", JSON.stringify(currentUser));
+                closeAuth();
+                updateAccountUI();
+                alert(`Welcome back, ${user.name}! 🎉`);
+            } else {
+                alert("Invalid credentials. Please check your phone/email and password.");
+            }
+        }
+
+        function doRegister() {
+            const name = document.getElementById("regName").value.trim();
+            const phone = document.getElementById("regPhone").value.trim();
+            const email = document.getElementById("regEmail").value.trim();
+            const password = document.getElementById("regPassword").value;
+            const method = document.getElementById("verifyMethod").value;
+
+            if (!name || !phone || !email || !password) {
+                alert("Please fill in all fields.");
+                return;
+            }
+            if (password.length < 6) {
+                alert("Password must be at least 6 characters.");
+                return;
+            }
+
+            // Save user
+            const users = JSON.parse(localStorage.getItem("mw_users") || "[]");
+            if (users.find(u => u.phone === phone || u.email === email)) {
+                alert("An account with this phone or email already exists. Please login.");
+                switchTab("login");
+                return;
+            }
+
+            users.push({ name, phone, email, password });
+            localStorage.setItem("mw_users", JSON.stringify(users));
+
+            // Show verification message
+            const verifyBox = document.getElementById("verifyBox");
+            document.getElementById("verifyTarget").textContent = method === "phone" ? "phone" : "email";
+            verifyBox.classList.add("show");
+
+            // Auto login after registration
+            setTimeout(() => {
+                currentUser = { name, phone, email };
+                localStorage.setItem("mw_user", JSON.stringify(currentUser));
+                closeAuth();
+                updateAccountUI();
+                alert(`Account created! Welcome, ${name}! 🎉`);
+            }, 2000);
+        }
+
+        /* ── CATEGORIES ── */
+        function renderCategories() {
+            categoryGrid.innerHTML = categories.map(c => `
+      <div class="card" data-category="${c.name}">
+        <div class="icon"><i class="fa-solid ${c.icon}"></i></div>
+        <h3>${c.name}</h3>
+        <p>${c.desc}</p>
+      </div>`).join("");
+            categoryGrid.querySelectorAll(".card").forEach(card => card.onclick = () => {
+                state.category = card.dataset.category;
+                document.getElementById("categoryFilter").value = state.category;
+                renderAll();
+                document.getElementById("shop").scrollIntoView({ behavior: "smooth" });
+            });
+        }
+
+        function stars(r) { return "★".repeat(Math.floor(r)) + "☆".repeat(5 - Math.floor(r)); }
+
+        /* ── PRODUCT CARD ── */
+        function productCard(p) {
+            return `
+    <article class="product">
+      <div class="product-media">
+        <div class="tag"><span class="badge ${p.badge.toLowerCase()}">${p.badge}</span></div>
+        <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/400x300?text=${encodeURIComponent(p.name)}'">
+      </div>
+      <div class="product-body">
+        <h3>${p.name}</h3>
+        <p style="font-size:.85rem;color:var(--muted);margin-bottom:10px;min-height:36px">${p.desc || ''}</p>
+        <div class="rating"><span>${stars(p.rating)}</span><span>${p.rating.toFixed(1)}</span></div>
+        <div class="price">KES ${p.price.toLocaleString()}</div>
+        <div class="row">
+          <button class="btn btn-primary" onclick="addToCart(${p.id})">
+            <i class="fa-solid fa-cart-plus"></i> Add to Cart
+          </button>
+        </div>
+      </div>
+    </article>`;
+        }
+
+        /* ── FILTER ── */
+        function getFiltered() {
+            return products.filter(p =>
+                (!state.search || (p.name + " " + p.category + " " + p.brand + " " + (p.desc || "")).toLowerCase().includes(state.search.toLowerCase())) &&
+                (state.category === "all" || p.category === state.category) &&
+                (state.brand === "all" || p.brand === state.brand) &&
+                (!state.maxPrice || p.price <= Number(state.maxPrice))
+            ).sort((a, b) => state.sort === "low" ? a.price - b.price : state.sort === "high" ? b.price - a.price : b.rating - a.rating);
+        }
+
+        /* ── RENDER ALL ── */
+        function renderAll() {
+            const filtered = getFiltered();
+            featuredGrid.innerHTML = products.slice(0, 8).map(productCard).join("");
+            shopGrid.innerHTML = filtered.map(productCard).join("");
+            document.getElementById("resultCount").textContent = filtered.length;
+            document.getElementById("emptyState").style.display = filtered.length ? "none" : "block";
+            cartCount.textContent = state.cart.reduce((a, b) => a + b.qty, 0);
+            cartItemsLabel.textContent = state.cart.reduce((a, b) => a + b.qty, 0);
+            cartTotal.textContent = state.cart.reduce((a, b) => a + (b.price * b.qty), 0).toLocaleString();
+            renderCart();
+        }
+
+        /* ── CART ── */
+        function addToCart(id) {
+            const p = products.find(x => x.id === id);
+            const item = state.cart.find(x => x.id === id);
+            if (item) item.qty++;
+            else state.cart.push({ ...p, qty: 1 });
+            renderAll();
+            openCart();
+        }
+
+        window.addToCart = addToCart;
+
+        function renderCart() {
+            cartList.innerHTML = state.cart.length ? state.cart.map(item => `
+      <div class="cart-item">
+        <img src="${item.img}" alt="${item.name}">
+        <div>
+          <strong>${item.name}</strong>
+          <div class="muted" style="font-size:.85rem">KES ${item.price.toLocaleString()} / unit</div>
+          <div class="qty">
+            <button onclick="changeQty(${item.id},-1)">−</button>
+            <strong>${item.qty}</strong>
+            <button onclick="changeQty(${item.id},1)">+</button>
+          </div>
+          <div style="font-size:.85rem;color:var(--accent);font-weight:700;margin-top:4px">
+            Subtotal: KES ${(item.price * item.qty).toLocaleString()}
+          </div>
+        </div>
+        <button class="close-btn" onclick="removeItem(${item.id})"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    `).join("") : `<div class="empty">Your cart is empty.<br><span style="font-size:.85rem">Add products to get started.</span></div>`;
+        }
+
+        function changeQty(id, delta) {
+            const item = state.cart.find(x => x.id === id);
+            if (!item) return;
+            item.qty += delta;
+            if (item.qty <= 0) state.cart = state.cart.filter(x => x.id !== id);
+            renderAll();
+        }
+
+        function removeItem(id) {
+            state.cart = state.cart.filter(x => x.id !== id);
+            renderAll();
+        }
+
+        window.changeQty = changeQty;
+        window.removeItem = removeItem;
+
+        /* ── WHATSAPP CHECKOUT ── */
+        document.getElementById("checkoutBtn").onclick = function () {
+            if (state.cart.length === 0) {
+                alert("Your cart is empty! Add some products first.");
+                return;
+            }
+
+            const total = state.cart.reduce((a, b) => a + (b.price * b.qty), 0);
+
+            // Build order list
+            const itemsList = state.cart.map(item =>
+                `  • ${item.name} × ${item.qty} = KES ${(item.price * item.qty).toLocaleString()}`
+            ).join("\n");
+
+            // Customer greeting
+            const customerName = currentUser ? currentUser.name : "Customer";
+            const customerPhone = currentUser ? `\nMy phone: ${currentUser.phone}` : "";
+
+            const message =
+                `Hello Mwangi Hardware! 👋
+
+My name is *${customerName}*.${customerPhone}
+
+🛒 *My Order:*
+${itemsList}
+
+💰 *Total: KES ${total.toLocaleString()}*
+
+Please confirm availability and delivery options. Thank you!`;
+
+            const url = `https://wa.me/254799747941?text=${encodeURIComponent(message)}`;
+            window.open(url, "_blank");
+        };
+
+        /* ── OPEN/CLOSE CART ── */
+        function openCart() { cartSidebar.classList.add("open"); overlay.classList.add("show"); }
+        function closeCart() { cartSidebar.classList.remove("open"); overlay.classList.remove("show"); }
+
+        document.getElementById("cartBtn").onclick = openCart;
+        document.getElementById("closeCart").onclick = closeCart;
+        overlay.onclick = closeCart;
+
+        /* ── FILTERS ── */
+        document.getElementById("searchInput").addEventListener("input", e => { state.search = e.target.value; renderAll(); });
+        document.getElementById("priceFilter").addEventListener("input", e => { state.maxPrice = e.target.value; renderAll(); });
+        document.getElementById("categoryFilter").addEventListener("change", e => { state.category = e.target.value; renderAll(); });
+        document.getElementById("brandFilter").addEventListener("change", e => { state.brand = e.target.value; renderAll(); });
+        document.getElementById("sortFilter").addEventListener("change", e => { state.sort = e.target.value; renderAll(); });
+        document.getElementById("clearFilters").onclick = () => {
+            state.search = ""; state.category = "all"; state.brand = "all"; state.sort = "best"; state.maxPrice = "";
+            document.getElementById("searchInput").value = "";
+            document.getElementById("priceFilter").value = "";
+            document.getElementById("categoryFilter").value = "all";
+            document.getElementById("brandFilter").value = "all";
+            document.getElementById("sortFilter").value = "best";
+            renderAll();
+        };
+
+        /* ── BURGER ── */
+        document.getElementById("burgerBtn").onclick = () => {
+            const nav = document.getElementById("mobileNav");
+            nav.style.display = nav.style.display === "grid" ? "none" : "grid";
+        };
+
+        /* ── COUNTDOWN ── */
+        function updateCountdown() {
+            let h = +document.getElementById("hh").textContent;
+            let m = +document.getElementById("mm").textContent;
+            let s = +document.getElementById("ss").textContent;
+            s--;
+            if (s < 0) { s = 59; m--; }
+            if (m < 0) { m = 59; h--; }
+            if (h < 0) { h = 12; m = 45; s = 20; }
+            document.getElementById("hh").textContent = String(h).padStart(2, "0");
+            document.getElementById("mm").textContent = String(m).padStart(2, "0");
+            document.getElementById("ss").textContent = String(s).padStart(2, "0");
+        }
+
+        /* ── COOKIE ── */
+        function cookieConsent() {
+            if (!localStorage.getItem("mw_cookie")) document.getElementById("cookieBanner").classList.add("show");
+            document.getElementById("acceptCookies").onclick = () => { localStorage.setItem("mw_cookie", "accepted"); document.getElementById("cookieBanner").classList.remove("show"); };
+            document.getElementById("rejectCookies").onclick = () => { localStorage.setItem("mw_cookie", "rejected"); document.getElementById("cookieBanner").classList.remove("show"); };
+        }
+
+        /* ── INIT ── */
+        renderCategories();
+        renderAll();
+        updateAccountUI();
+        cookieConsent();
+        setInterval(updateCountdown, 1000);
+    </script>
 </body>
 
 </html>
