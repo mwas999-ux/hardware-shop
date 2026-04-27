@@ -156,7 +156,6 @@
             color: #a16207
         }
 
-        /* HEADER */
         .header {
             position: sticky;
             top: 0;
@@ -318,7 +317,6 @@
             width: 100%
         }
 
-        /* HERO */
         .hero {
             min-height: 76vh;
             background: linear-gradient(90deg, rgba(0, 0, 0, .84), rgba(0, 0, 0, .45)), url("https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1920&q=80") center/cover;
@@ -395,7 +393,6 @@
             font-size: .84rem
         }
 
-        /* CARDS */
         .cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
@@ -449,7 +446,6 @@
             font-size: .92rem
         }
 
-        /* DEALS */
         .promo-grid {
             display: grid;
             grid-template-columns: 1.15fr .85fr;
@@ -507,7 +503,6 @@
             margin-bottom: 8px
         }
 
-        /* SHOP */
         .shop-layout {
             display: grid;
             grid-template-columns: 290px 1fr;
@@ -635,7 +630,6 @@
             border-radius: 12px
         }
 
-        /* TRUST */
         .trust-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -652,7 +646,6 @@
             margin-bottom: 12px
         }
 
-        /* FOOTER */
         footer {
             background: linear-gradient(180deg, #101114, #050505);
             color: #fff;
@@ -693,7 +686,6 @@
             background: rgba(255, 255, 255, .08)
         }
 
-        /* CART SIDEBAR */
         .cart-sidebar {
             position: fixed;
             top: 0;
@@ -774,7 +766,6 @@
             cursor: pointer
         }
 
-        /* OVERLAY */
         .overlay {
             position: fixed;
             inset: 0;
@@ -790,7 +781,6 @@
             pointer-events: auto
         }
 
-        /* WHATSAPP */
         .whatsapp {
             position: fixed;
             right: 18px;
@@ -807,7 +797,6 @@
             font-size: 1.6rem
         }
 
-        /* COOKIE */
         .cookie {
             position: fixed;
             left: 18px;
@@ -837,7 +826,7 @@
             margin: 0
         }
 
-        /* ── AUTH MODAL ── */
+        /* AUTH MODAL */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -998,19 +987,12 @@
             right: 0
         }
 
-        .user-pill {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 14px;
-            background: var(--soft);
-            border-radius: 999px;
-            font-size: .9rem;
-            font-weight: 600;
-            color: var(--accent)
+        /* loading spinner inside btn */
+        .btn-loading {
+            opacity: 0.7;
+            pointer-events: none
         }
 
-        /* MISC */
         .burger {
             display: none
         }
@@ -1048,6 +1030,18 @@
 
             .shop-panel {
                 position: static
+            }
+        }
+
+        @keyframes slideUpToast {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
             }
         }
 
@@ -1105,7 +1099,6 @@
 
 <body>
 
-    <!-- ── HEADER ── -->
     <header class="header">
         <div class="container">
             <div class="header-top">
@@ -1119,7 +1112,6 @@
                         placeholder="Search products, brands, tools, materials..." />
                 </div>
                 <div class="actions">
-                    <!-- Account button — changes based on login state -->
                     <button class="action" id="accountBtn" type="button"><i class="fa-regular fa-user"></i><span
                             id="accountLabel">Login</span></button>
                     <a class="action" href="#contact"><i class="fa-solid fa-phone"></i><span>Contact</span></a>
@@ -1143,7 +1135,6 @@
         </div>
     </header>
 
-    <!-- ── HERO ── -->
     <section class="hero">
         <div class="container">
             <div class="hero-grid">
@@ -1176,7 +1167,6 @@
         </div>
     </section>
 
-    <!-- ── CATEGORIES ── -->
     <section id="categories" class="section">
         <div class="container">
             <div class="title">
@@ -1189,7 +1179,6 @@
         </div>
     </section>
 
-    <!-- ── FEATURED ── -->
     <section class="section">
         <div class="container">
             <div class="title">
@@ -1202,7 +1191,6 @@
         </div>
     </section>
 
-    <!-- ── DEALS ── -->
     <section class="section deals">
         <div class="container">
             <div class="title">
@@ -1237,7 +1225,6 @@
         </div>
     </section>
 
-    <!-- ── SHOP ── -->
     <section id="shop" class="section">
         <div class="container">
             <div class="title">
@@ -1292,7 +1279,6 @@
         </div>
     </section>
 
-    <!-- ── WHY US ── -->
     <section class="section">
         <div class="container">
             <div class="title">
@@ -1318,7 +1304,6 @@
         </div>
     </section>
 
-    <!-- ── FOOTER / CONTACT ── -->
     <footer id="contact">
         <div class="container">
             <div class="footer-grid">
@@ -1326,9 +1311,8 @@
                     <h4>Mwangi Hardware</h4>
                     <p>Premium online hardware store in Kenya for tools, materials, plumbing, electrical, tiles, paint,
                         and more.</p>
-                    <div class="payments">
-                        <span class="pay">M-Pesa</span><span class="pay">Visa</span><span class="pay">Mastercard</span>
-                    </div>
+                    <div class="payments"><span class="pay">M-Pesa</span><span class="pay">Visa</span><span
+                            class="pay">Mastercard</span></div>
                 </div>
                 <div>
                     <h4>Quick Links</h4>
@@ -1358,10 +1342,8 @@
         </div>
     </footer>
 
-    <!-- ── OVERLAY ── -->
     <div class="overlay" id="overlay"></div>
 
-    <!-- ── CART SIDEBAR ── -->
     <aside class="cart-sidebar" id="cartSidebar">
         <div class="cart-head" style="display:flex;justify-content:space-between;align-items:center;gap:10px">
             <div>
@@ -1374,7 +1356,6 @@
         <div class="cart-foot">
             <div style="display:flex;justify-content:space-between;margin-bottom:14px"><strong>Total</strong><strong>KES
                     <span id="cartTotal">0</span></strong></div>
-            <!-- WhatsApp Checkout Button -->
             <button class="btn btn-success"
                 style="width:100%;justify-content:center;margin-bottom:10px;border-radius:14px;padding:14px"
                 id="checkoutBtn">
@@ -1385,14 +1366,12 @@
         </div>
     </aside>
 
-    <!-- ── WHATSAPP FLOAT ── -->
     <a class="whatsapp"
         href="https://wa.me/254799747941?text=Hello%20Mwangi%20Hardware!%20I%20need%20help%20with%20products%20and%20delivery."
         target="_blank" aria-label="WhatsApp">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
-    <!-- ── COOKIE BANNER ── -->
     <div class="cookie" id="cookieBanner">
         <p>We use cookies to improve shopping, remember cart items, and analyze traffic.</p>
         <div style="display:flex;gap:10px;flex-wrap:wrap">
@@ -1401,7 +1380,7 @@
         </div>
     </div>
 
-    <!-- ── AUTH MODAL ── -->
+    <!-- AUTH MODAL -->
     <div class="modal-overlay" id="authModal">
         <div class="modal">
             <div class="modal-head">
@@ -1425,7 +1404,7 @@
                         <input type="password" id="loginPassword" placeholder="Enter your password">
                     </div>
                     <button class="btn btn-primary" style="width:100%;justify-content:center;margin-bottom:12px"
-                        onclick="doLogin()">
+                        id="loginBtn" onclick="doLogin()">
                         <i class="fa-solid fa-right-to-bracket"></i> Login
                     </button>
                     <div class="auth-divider">or</div>
@@ -1452,21 +1431,22 @@
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" id="regPassword" placeholder="Create a strong password">
+                        <input type="password" id="regPassword" placeholder="Create a strong password (min 6 chars)">
                     </div>
                     <div class="form-group">
                         <label>Verify Account Via</label>
                         <select id="verifyMethod"
                             style="border-radius:14px;border:1.5px solid var(--line);padding:13px 14px;outline:none;width:100%;font-family:Poppins,sans-serif">
-                            <option value="phone">Phone (SMS code)</option>
                             <option value="email">Email (verification link)</option>
+                            <option value="phone">Phone (SMS code)</option>
                         </select>
                     </div>
                     <div class="verify-box" id="verifyBox">
-                        ✅ A verification code has been sent. Please check your <span id="verifyTarget">phone</span>.
+                        ✅ Account created! Please check your <span id="verifyTarget">email</span> to verify your account
+                        before logging in.
                     </div>
                     <button class="btn btn-primary" style="width:100%;justify-content:center;margin-bottom:12px"
-                        onclick="doRegister()">
+                        id="registerBtn" onclick="doRegister()">
                         <i class="fa-solid fa-user-plus"></i> Create Account
                     </button>
                     <p style="text-align:center;font-size:.88rem;color:var(--muted);margin-top:12px">
@@ -1480,6 +1460,9 @@
     </div>
 
     <script>
+        /* ── CONFIG ── */
+        const API = 'https://hardware-shop-ksvk.onrender.com';
+
         /* ── PRODUCTS DATA ── */
         const products = [
             { id: 1, name: "Claw Hammer 16oz", price: 850, rating: 4.7, category: "Tools", brand: "Generic", badge: "SALE", img: "https://images.unsplash.com/photo-1581147036324-c6c83a1b7c01?auto=format&fit=crop&w=900&q=80", desc: "Heavy duty drop-forged steel hammer. Ergonomic grip handle." },
@@ -1536,7 +1519,7 @@
         const cartSidebar = document.getElementById("cartSidebar");
         const overlay = document.getElementById("overlay");
 
-        /* ── AUTH ── */
+        /* ── AUTH UI ── */
         function updateAccountUI() {
             const btn = document.getElementById("accountBtn");
             const label = document.getElementById("accountLabel");
@@ -1548,6 +1531,7 @@
                     if (confirm(`Logout as ${currentUser.name}?`)) {
                         currentUser = null;
                         localStorage.removeItem("mw_user");
+                        localStorage.removeItem("mw_token");
                         updateAccountUI();
                     }
                 };
@@ -1558,21 +1542,12 @@
             }
         }
 
-        function openAuth() {
-            document.getElementById("authModal").classList.add("show");
-        }
-
-        function closeAuth() {
-            document.getElementById("authModal").classList.remove("show");
-        }
+        function openAuth() { document.getElementById("authModal").classList.add("show"); }
+        function closeAuth() { document.getElementById("authModal").classList.remove("show"); }
 
         document.getElementById("closeModal").onclick = closeAuth;
         document.getElementById("accountBtn").onclick = openAuth;
-
-        // Close modal on overlay click
-        document.getElementById("authModal").addEventListener("click", function (e) {
-            if (e.target === this) closeAuth();
-        });
+        document.getElementById("authModal").addEventListener("click", function (e) { if (e.target === this) closeAuth(); });
 
         function switchTab(tab) {
             document.getElementById("loginForm").style.display = tab === "login" ? "block" : "none";
@@ -1580,15 +1555,21 @@
             document.getElementById("loginTab").classList.toggle("active", tab === "login");
             document.getElementById("registerTab").classList.toggle("active", tab === "register");
             document.getElementById("modalTitle").textContent = tab === "login" ? "Welcome Back" : "Create Account";
+            document.getElementById("verifyBox").classList.remove("show");
         }
 
+        /* ── LOGIN — calls real backend ── */
         async function doLogin() {
             const identifier = document.getElementById("loginIdentifier").value.trim();
             const password = document.getElementById("loginPassword").value;
             if (!identifier || !password) { alert("Please fill in all fields."); return; }
 
+            const btn = document.getElementById("loginBtn");
+            btn.classList.add("btn-loading");
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Logging in...';
+
             try {
-                const res = await fetch('https://hardware-shop-ksvk.onrender.com/auth/login', {
+                const res = await fetch(`${API}/auth/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ identifier, password })
@@ -1596,38 +1577,43 @@
 
                 const data = await res.json();
 
-                if (!res.ok) { alert(data.error || "Login failed."); return; }
+                if (!res.ok) {
+                    showToast(data.error || "Login failed. Please try again.", 'error');
+                    return;
+                }
 
-                // Save token and user
+                // Save JWT token and user info
                 localStorage.setItem("mw_token", data.token);
                 localStorage.setItem("mw_user", JSON.stringify(data.user));
                 currentUser = data.user;
                 closeAuth();
                 updateAccountUI();
-                alert(`Welcome back, ${data.user.name}! 🎉`);
+                showToast(`Welcome back, ${data.user.name}! 🎉`, 'success');
 
             } catch (e) {
-                alert("Connection error. Please try again.");
+
+            } finally {
+                btn.classList.remove("btn-loading");
+                btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Login'; showToast("Connection error. Please try again.", 'error');
             }
         }
+
+        /* ── REGISTER — calls real backend ── */
         async function doRegister() {
             const name = document.getElementById("regName").value.trim();
             const phone = document.getElementById("regPhone").value.trim();
             const email = document.getElementById("regEmail").value.trim();
             const password = document.getElementById("regPassword").value;
 
-            if (!name || !phone || !email || !password) {
-                alert("Please fill in all fields.");
-                return;
-            }
+            if (!name || !phone || !email || !password) { alert("Please fill in all fields."); return; }
+            if (password.length < 6) { alert("Password must be at least 6 characters."); return; }
 
-            if (password.length < 6) {
-                alert("Password must be at least 6 characters.");
-                return;
-            }
+            const btn = document.getElementById("registerBtn");
+            btn.classList.add("btn-loading");
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Creating account...';
 
             try {
-                const res = await fetch('https://hardware-shop-ksvk.onrender.com/auth/register', {
+                const res = await fetch(`${API}/auth/register`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ name, phone, email, password })
@@ -1635,48 +1621,38 @@
 
                 const data = await res.json();
 
-                if (!res.ok) { alert(data.error || "Registration failed."); return; }
+                if (!res.ok) {
+                    return;
+                    showToast(data.error || "Registration failed. Please try again.", 'error');
+                }
 
-                // Show verification message
+                // Show success message
                 const verifyBox = document.getElementById("verifyBox");
                 document.getElementById("verifyTarget").textContent = "email";
                 verifyBox.classList.add("show");
 
-                setTimeout(() => {
-                    closeAuth();
-                    alert(`Account created! Check your email to verify your account. ${name} 🎉`);
-                }, 2000);
+                // Clear form
+                document.getElementById("regName").value = "";
+                document.getElementById("regPhone").value = "";
+                document.getElementById("regEmail").value = "";
+                document.getElementById("regPassword").value = "";
 
             } catch (e) {
-                alert("Connection error. Please try again.");
+                alert("Connection error. Please check your internet and try again.");
+            } finally {
+                btn.classList.remove("btn-loading");
+                btn.innerHTML = '<i class="fa-solid fa-user-plus"></i> Create Account';
             }
-
-            users.push({ name, phone, email, password });
-            localStorage.setItem("mw_users", JSON.stringify(users));
-
-            // Show verification message
-            const verifyBox = document.getElementById("verifyBox");
-            document.getElementById("verifyTarget").textContent = method === "phone" ? "phone" : "email";
-            verifyBox.classList.add("show");
-
-            // Auto login after registration
-            setTimeout(() => {
-                currentUser = { name, phone, email };
-                localStorage.setItem("mw_user", JSON.stringify(currentUser));
-                closeAuth();
-                updateAccountUI();
-                alert(`Account created! Welcome, ${name}! 🎉`);
-            }, 2000);
         }
 
         /* ── CATEGORIES ── */
         function renderCategories() {
             categoryGrid.innerHTML = categories.map(c => `
-      <div class="card" data-category="${c.name}">
-        <div class="icon"><i class="fa-solid ${c.icon}"></i></div>
-        <h3>${c.name}</h3>
-        <p>${c.desc}</p>
-      </div>`).join("");
+                <div class="card" data-category="${c.name}">
+                    <div class="icon"><i class="fa-solid ${c.icon}"></i></div>
+                    <h3>${c.name}</h3>
+                    <p>${c.desc}</p>
+                </div>`).join("");
             categoryGrid.querySelectorAll(".card").forEach(card => card.onclick = () => {
                 state.category = card.dataset.category;
                 document.getElementById("categoryFilter").value = state.category;
@@ -1687,29 +1663,27 @@
 
         function stars(r) { return "★".repeat(Math.floor(r)) + "☆".repeat(5 - Math.floor(r)); }
 
-        /* ── PRODUCT CARD ── */
         function productCard(p) {
             return `
-    <article class="product">
-      <div class="product-media">
-        <div class="tag"><span class="badge ${p.badge.toLowerCase()}">${p.badge}</span></div>
-        <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/400x300?text=${encodeURIComponent(p.name)}'">
-      </div>
-      <div class="product-body">
-        <h3>${p.name}</h3>
-        <p style="font-size:.85rem;color:var(--muted);margin-bottom:10px;min-height:36px">${p.desc || ''}</p>
-        <div class="rating"><span>${stars(p.rating)}</span><span>${p.rating.toFixed(1)}</span></div>
-        <div class="price">KES ${p.price.toLocaleString()}</div>
-        <div class="row">
-          <button class="btn btn-primary" onclick="addToCart(${p.id})">
-            <i class="fa-solid fa-cart-plus"></i> Add to Cart
-          </button>
-        </div>
-      </div>
-    </article>`;
+            <article class="product">
+                <div class="product-media">
+                    <div class="tag"><span class="badge ${p.badge.toLowerCase()}">${p.badge}</span></div>
+                    <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/400x300?text=${encodeURIComponent(p.name)}'">
+                </div>
+                <div class="product-body">
+                    <h3>${p.name}</h3>
+                    <p style="font-size:.85rem;color:var(--muted);margin-bottom:10px;min-height:36px">${p.desc || ''}</p>
+                    <div class="rating"><span>${stars(p.rating)}</span><span>${p.rating.toFixed(1)}</span></div>
+                    <div class="price">KES ${p.price.toLocaleString()}</div>
+                    <div class="row">
+                        <button class="btn btn-primary" onclick="addToCart(${p.id})">
+                            <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </article>`;
         }
 
-        /* ── FILTER ── */
         function getFiltered() {
             return products.filter(p =>
                 (!state.search || (p.name + " " + p.category + " " + p.brand + " " + (p.desc || "")).toLowerCase().includes(state.search.toLowerCase())) &&
@@ -1719,7 +1693,6 @@
             ).sort((a, b) => state.sort === "low" ? a.price - b.price : state.sort === "high" ? b.price - a.price : b.rating - a.rating);
         }
 
-        /* ── RENDER ALL ── */
         function renderAll() {
             const filtered = getFiltered();
             featuredGrid.innerHTML = products.slice(0, 8).map(productCard).join("");
@@ -1732,7 +1705,6 @@
             renderCart();
         }
 
-        /* ── CART ── */
         function addToCart(id) {
             const p = products.find(x => x.id === id);
             const item = state.cart.find(x => x.id === id);
@@ -1741,28 +1713,27 @@
             renderAll();
             openCart();
         }
-
         window.addToCart = addToCart;
 
         function renderCart() {
             cartList.innerHTML = state.cart.length ? state.cart.map(item => `
-      <div class="cart-item">
-        <img src="${item.img}" alt="${item.name}">
-        <div>
-          <strong>${item.name}</strong>
-          <div class="muted" style="font-size:.85rem">KES ${item.price.toLocaleString()} / unit</div>
-          <div class="qty">
-            <button onclick="changeQty(${item.id},-1)">−</button>
-            <strong>${item.qty}</strong>
-            <button onclick="changeQty(${item.id},1)">+</button>
-          </div>
-          <div style="font-size:.85rem;color:var(--accent);font-weight:700;margin-top:4px">
-            Subtotal: KES ${(item.price * item.qty).toLocaleString()}
-          </div>
-        </div>
-        <button class="close-btn" onclick="removeItem(${item.id})"><i class="fa-solid fa-trash"></i></button>
-      </div>
-    `).join("") : `<div class="empty">Your cart is empty.<br><span style="font-size:.85rem">Add products to get started.</span></div>`;
+                <div class="cart-item">
+                    <img src="${item.img}" alt="${item.name}">
+                    <div>
+                        <strong>${item.name}</strong>
+                        <div class="muted" style="font-size:.85rem">KES ${item.price.toLocaleString()} / unit</div>
+                        <div class="qty">
+                            <button onclick="changeQty(${item.id},-1)">−</button>
+                            <strong>${item.qty}</strong>
+                            <button onclick="changeQty(${item.id},1)">+</button>
+                        </div>
+                        <div style="font-size:.85rem;color:var(--accent);font-weight:700;margin-top:4px">
+                            Subtotal: KES ${(item.price * item.qty).toLocaleString()}
+                        </div>
+                    </div>
+                    <button class="close-btn" onclick="removeItem(${item.id})"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            `).join("") : `<div class="empty">Your cart is empty.<br><span style="font-size:.85rem">Add products to get started.</span></div>`;
         }
 
         function changeQty(id, delta) {
@@ -1772,30 +1743,19 @@
             if (item.qty <= 0) state.cart = state.cart.filter(x => x.id !== id);
             renderAll();
         }
-
-        function removeItem(id) {
-            state.cart = state.cart.filter(x => x.id !== id);
-            renderAll();
-        }
-
+        function removeItem(id) { state.cart = state.cart.filter(x => x.id !== id); renderAll(); }
         window.changeQty = changeQty;
         window.removeItem = removeItem;
 
         /* ── WHATSAPP CHECKOUT ── */
         document.getElementById("checkoutBtn").onclick = function () {
-            if (state.cart.length === 0) {
-                alert("Your cart is empty! Add some products first.");
-                return;
-            }
+            if (state.cart.length === 0) { alert("Your cart is empty! Add some products first."); return; }
 
             const total = state.cart.reduce((a, b) => a + (b.price * b.qty), 0);
-
-            // Build order list
             const itemsList = state.cart.map(item =>
                 `  • ${item.name} × ${item.qty} = KES ${(item.price * item.qty).toLocaleString()}`
             ).join("\n");
 
-            // Customer greeting
             const customerName = currentUser ? currentUser.name : "Customer";
             const customerPhone = currentUser ? `\nMy phone: ${currentUser.phone}` : "";
 
@@ -1811,11 +1771,9 @@ ${itemsList}
 
 Please confirm availability and delivery options. Thank you!`;
 
-            const url = `https://wa.me/254799747941?text=${encodeURIComponent(message)}`;
-            window.open(url, "_blank");
+            window.open(`https://wa.me/254799747941?text=${encodeURIComponent(message)}`, "_blank");
         };
 
-        /* ── OPEN/CLOSE CART ── */
         function openCart() { cartSidebar.classList.add("open"); overlay.classList.add("show"); }
         function closeCart() { cartSidebar.classList.remove("open"); overlay.classList.remove("show"); }
 
@@ -1823,7 +1781,6 @@ Please confirm availability and delivery options. Thank you!`;
         document.getElementById("closeCart").onclick = closeCart;
         overlay.onclick = closeCart;
 
-        /* ── FILTERS ── */
         document.getElementById("searchInput").addEventListener("input", e => { state.search = e.target.value; renderAll(); });
         document.getElementById("priceFilter").addEventListener("input", e => { state.maxPrice = e.target.value; renderAll(); });
         document.getElementById("categoryFilter").addEventListener("change", e => { state.category = e.target.value; renderAll(); });
@@ -1839,13 +1796,11 @@ Please confirm availability and delivery options. Thank you!`;
             renderAll();
         };
 
-        /* ── BURGER ── */
         document.getElementById("burgerBtn").onclick = () => {
             const nav = document.getElementById("mobileNav");
             nav.style.display = nav.style.display === "grid" ? "none" : "grid";
         };
 
-        /* ── COUNTDOWN ── */
         function updateCountdown() {
             let h = +document.getElementById("hh").textContent;
             let m = +document.getElementById("mm").textContent;
@@ -1859,14 +1814,32 @@ Please confirm availability and delivery options. Thank you!`;
             document.getElementById("ss").textContent = String(s).padStart(2, "0");
         }
 
-        /* ── COOKIE ── */
         function cookieConsent() {
             if (!localStorage.getItem("mw_cookie")) document.getElementById("cookieBanner").classList.add("show");
             document.getElementById("acceptCookies").onclick = () => { localStorage.setItem("mw_cookie", "accepted"); document.getElementById("cookieBanner").classList.remove("show"); };
             document.getElementById("rejectCookies").onclick = () => { localStorage.setItem("mw_cookie", "rejected"); document.getElementById("cookieBanner").classList.remove("show"); };
         }
+        function showToast(message, type = 'success') {
+            const existing = document.getElementById('toast');
+            if (existing) existing.remove();
 
+            const toast = document.createElement('div');
+            toast.id = 'toast';
+            toast.style.cssText = `
+        position:fixed; bottom:30px; left:50%; transform:translateX(-50%);
+        background:${type === 'success' ? '#16a34a' : '#ef4444'};
+        color:white; padding:14px 28px; border-radius:14px;
+        font-family:Poppins,sans-serif; font-weight:600; font-size:.95rem;
+        box-shadow:0 10px 30px rgba(0,0,0,.2); z-index:9999;
+        animation:slideUpToast .3s ease;
+    `;
+            toast.textContent = message;
+
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3500);
+        }
         /* ── INIT ── */
+
         renderCategories();
         renderAll();
         updateAccountUI();
