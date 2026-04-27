@@ -1582,48 +1582,73 @@
             document.getElementById("modalTitle").textContent = tab === "login" ? "Welcome Back" : "Create Account";
         }
 
-        function doLogin() {
-            const id = document.getElementById("loginIdentifier").value.trim();
-            const pw = document.getElementById("loginPassword").value;
-            if (!id || !pw) { alert("Please fill in all fields."); return; }
+        async function doLogin() {
+            const identifier = document.getElementById("loginIdentifier").value.trim();
+            const password = document.getElementById("loginPassword").value;
+            if (!identifier || !password) { alert("Please fill in all fields."); return; }
 
-            // Check local storage for registered users
-            const users = JSON.parse(localStorage.getItem("mw_users") || "[]");
-            const user = users.find(u => (u.phone === id || u.email === id) && u.password === pw);
+            try {
+                const res = await fetch('https://hardware-shop-ksvk.onrender.com/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ identifier, password })
+                });
 
-            if (user) {
-                currentUser = { name: user.name, phone: user.phone, email: user.email };
-                localStorage.setItem("mw_user", JSON.stringify(currentUser));
+                const data = await res.json();
+
+                if (!res.ok) { alert(data.error || "Login failed."); return; }
+
+                // Save token and user
+                localStorage.setItem("mw_token", data.token);
+                localStorage.setItem("mw_user", JSON.stringify(data.user));
+                currentUser = data.user;
                 closeAuth();
                 updateAccountUI();
-                alert(`Welcome back, ${user.name}! 🎉`);
-            } else {
-                alert("Invalid credentials. Please check your phone/email and password.");
+                alert(`Welcome back, ${data.user.name}! 🎉`);
+
+            } catch (e) {
+                alert("Connection error. Please try again.");
             }
         }
-
-        function doRegister() {
+        async function doRegister() {
             const name = document.getElementById("regName").value.trim();
             const phone = document.getElementById("regPhone").value.trim();
             const email = document.getElementById("regEmail").value.trim();
             const password = document.getElementById("regPassword").value;
-            const method = document.getElementById("verifyMethod").value;
 
             if (!name || !phone || !email || !password) {
                 alert("Please fill in all fields.");
                 return;
             }
+
             if (password.length < 6) {
                 alert("Password must be at least 6 characters.");
                 return;
             }
 
-            // Save user
-            const users = JSON.parse(localStorage.getItem("mw_users") || "[]");
-            if (users.find(u => u.phone === phone || u.email === email)) {
-                alert("An account with this phone or email already exists. Please login.");
-                switchTab("login");
-                return;
+            try {
+                const res = await fetch('https://hardware-shop-ksvk.onrender.com/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, phone, email, password })
+                });
+
+                const data = await res.json();
+
+                if (!res.ok) { alert(data.error || "Registration failed."); return; }
+
+                // Show verification message
+                const verifyBox = document.getElementById("verifyBox");
+                document.getElementById("verifyTarget").textContent = "email";
+                verifyBox.classList.add("show");
+
+                setTimeout(() => {
+                    closeAuth();
+                    alert(`Account created! Check your email to verify your account. ${name} 🎉`);
+                }, 2000);
+
+            } catch (e) {
+                alert("Connection error. Please try again.");
             }
 
             users.push({ name, phone, email, password });
