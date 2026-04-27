@@ -1464,32 +1464,43 @@
         const API = 'https://hardware-shop-ksvk.onrender.com';
 
         /* ── PRODUCTS DATA ── */
-        const products = [
-            { id: 1, name: "Claw Hammer 16oz", price: 850, rating: 4.7, category: "Tools", brand: "Generic", badge: "SALE", img: "https://images.unsplash.com/photo-1581147036324-c6c83a1b7c01?auto=format&fit=crop&w=900&q=80", desc: "Heavy duty drop-forged steel hammer. Ergonomic grip handle." },
-            { id: 2, name: "Electric Drill Machine", price: 6800, rating: 4.8, category: "Tools", brand: "Makita", badge: "HOT", img: "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=900&q=80", desc: "750W variable speed drill. Ideal for masonry, wood and metal." },
-            { id: 3, name: "Bamburi Cement 50kg", price: 780, rating: 4.6, category: "Building Materials", brand: "Bamburi", badge: "NEW", img: "https://images.unsplash.com/photo-1597008641621-cefd7f09d3ae?auto=format&fit=crop&w=900&q=80", desc: "OPC 42.5N Portland cement. Trusted for all construction work." },
-            { id: 4, name: "uPVC Water Pipe 1/2\"", price: 420, rating: 4.5, category: "Plumbing", brand: "Generic", badge: "SALE", img: "https://images.unsplash.com/photo-1581093458791-9f3c3900aa2b?auto=format&fit=crop&w=900&q=80", desc: "High pressure uPVC pipe. 3M length, suitable for water supply." },
-            { id: 5, name: "Wash Hand Basin", price: 4900, rating: 4.7, category: "Kitchen & Bathroom", brand: "Rex", badge: "NEW", img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=80", desc: "Ceramic wash basin. Universal fit, white gloss finish." },
-            { id: 6, name: "Tile Adhesive 20kg", price: 1200, rating: 4.6, category: "Tiles & Flooring", brand: "Generic", badge: "HOT", img: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=900&q=80", desc: "White tile adhesive. For floor and wall tiles up to 60x60cm." },
-            { id: 7, name: "Duracoat Paint 4L", price: 1850, rating: 4.8, category: "Paint & Finishes", brand: "Duracoat", badge: "SALE", img: "https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?auto=format&fit=crop&w=900&q=80", desc: "Premium interior emulsion. Washable, smooth finish, long lasting." },
-            { id: 8, name: "Screwdriver Set 6pc", price: 1450, rating: 4.4, category: "Hardware Supplies", brand: "Generic", badge: "NEW", img: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=900&q=80", desc: "6-piece screwdriver set. Flat and Phillips heads, comfort grip." },
-            { id: 9, name: "Wheelbarrow", price: 6200, rating: 4.7, category: "Tools", brand: "National", badge: "HOT", img: "https://images.unsplash.com/photo-1583878026789-79a2f03b4c53?auto=format&fit=crop&w=900&q=80", desc: "Heavy duty steel wheelbarrow. 100L capacity, pneumatic tyre." },
-            { id: 10, name: "Padlock 60mm", price: 950, rating: 4.5, category: "Hardware Supplies", brand: "Generic", badge: "SALE", img: "https://images.unsplash.com/photo-1519400197429-404ae1a1e0f2?auto=format&fit=crop&w=900&q=80", desc: "Heavy brass padlock. Double locking shackle, 3 keys included." },
-            { id: 11, name: "Safety Gloves & Helmet", price: 2300, rating: 4.6, category: "Tools", brand: "Generic", badge: "NEW", img: "https://images.unsplash.com/photo-1593030103066-0043e8d1f0ed?auto=format&fit=crop&w=900&q=80", desc: "PPE combo set. Hard hat and heavy duty work gloves." },
-            { id: 12, name: "MDF Board 18mm", price: 3100, rating: 4.5, category: "Wood Products", brand: "Generic", badge: "HOT", img: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=900&q=80", desc: "Medium density fibreboard. 8x4ft sheet, smooth both sides." },
-            { id: 13, name: "Angle Grinder 4.5\"", price: 3800, rating: 4.7, category: "Tools", brand: "Makita", badge: "HOT", img: "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=900&q=80", desc: "850W angle grinder with safety guard. Cutting and grinding." },
-            { id: 14, name: "2.5mm Cable 100M Roll", price: 6500, rating: 4.8, category: "Electrical", brand: "Generic", badge: "NEW", img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80", desc: "PVC insulated copper cable. Suitable for domestic wiring." },
-            { id: 15, name: "MCB Switch 32A", price: 420, rating: 4.6, category: "Electrical", brand: "National", badge: "SALE", img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80", desc: "Miniature circuit breaker for overload protection. DIN rail." },
-            { id: 16, name: "Corrugated Iron Sheet 30G", price: 980, rating: 4.7, category: "Building Materials", brand: "Generic", badge: "HOT", img: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=900&q=80", desc: "Galvanized iron roofing sheet. 3M length, weather resistant." },
-            { id: 17, name: "60x60 Porcelain Floor Tiles", price: 1850, rating: 4.8, category: "Tiles & Flooring", brand: "Generic", badge: "NEW", img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=80", desc: "Gloss finish Carrara White tiles. Scratch resistant, heavy duty." },
-            { id: 18, name: "Ball Valve Brass 1/2\"", price: 380, rating: 4.5, category: "Plumbing", brand: "Rex", badge: "SALE", img: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=900&q=80", desc: "Heavy duty brass ball valve. Quarter turn on/off." },
-            { id: 19, name: "Barbed Wire 400M Roll", price: 5500, rating: 4.6, category: "Hardware Supplies", brand: "Generic", badge: "HOT", img: "https://images.unsplash.com/photo-1558002038-1055e2dae1d7?auto=format&fit=crop&w=900&q=80", desc: "High tensile galvanized barbed wire. 2-strand twist." },
-            { id: 20, name: "Cypress Timber 2x4", price: 480, rating: 4.5, category: "Wood Products", brand: "Generic", badge: "NEW", img: "https://images.unsplash.com/photo-1541123437800-1bb1317badc2?auto=format&fit=crop&w=900&q=80", desc: "Kiln-dried cypress timber. For roofing, formwork and carpentry." },
-            { id: 21, name: "Weathershield Paint 4L", price: 2200, rating: 4.7, category: "Paint & Finishes", brand: "Duracoat", badge: "HOT", img: "https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?auto=format&fit=crop&w=900&q=80", desc: "Exterior paint, UV protected for Kenyan climate conditions." },
-            { id: 22, name: "Flush Tank Complete Set", price: 2200, rating: 4.6, category: "Kitchen & Bathroom", brand: "Rex", badge: "NEW", img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=80", desc: "Complete toilet cistern with all fittings. Universal fit." },
-            { id: 23, name: "Steel Nails 4inch 1kg", price: 120, rating: 4.5, category: "Hardware Supplies", brand: "Generic", badge: "SALE", img: "https://images.unsplash.com/photo-1603696048229-82dbb00c0b75?auto=format&fit=crop&w=900&q=80", desc: "Heavy duty galvanized steel nails for timber framing." },
-            { id: 24, name: "Tape Measure 5M", price: 350, rating: 4.4, category: "Tools", brand: "Generic", badge: "NEW", img: "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=900&q=80", desc: "Auto-lock tape measure with magnetic tip. Belt clip included." },
-        ];
+        /* ── PRODUCTS DATA ── */
+        let products = [];
+
+        async function loadProducts() {
+            try {
+                const res = await fetch(`${API}/products`);
+                products = await res.json();
+
+                // Add missing fields for display
+                const badges = ['SALE', 'NEW', 'HOT'];
+                const imgs = {
+                    'Tools': 'https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=900&q=80',
+                    'Building Materials': 'https://images.unsplash.com/photo-1597008641621-cefd7f09d3ae?auto=format&fit=crop&w=900&q=80',
+                    'Plumbing': 'https://images.unsplash.com/photo-1581093458791-9f3c3900aa2b?auto=format&fit=crop&w=900&q=80',
+                    'Kitchen & Bathroom': 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=80',
+                    'Tiles & Flooring': 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=900&q=80',
+                    'Paint & Finishes': 'https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?auto=format&fit=crop&w=900&q=80',
+                    'Hardware Supplies': 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=900&q=80',
+                    'Wood Products': 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=900&q=80',
+                    'Electrical': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80',
+                };
+
+                products = products.map((p, i) => ({
+                    ...p,
+                    rating: (4.3 + Math.random() * 0.7).toFixed(1) * 1,
+                    badge: badges[i % 3],
+                    img: imgs[p.category] || 'https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=900&q=80',
+                    desc: `Quality ${p.category.toLowerCase()} product for construction and building use.`
+                }));
+
+                renderAll();
+
+            } catch (e) {
+                console.log('Failed to load products:', e);
+                renderAll();
+            }
+        }
 
         const categories = [
             { name: "Wood Products", icon: "fa-tree", desc: "Plywood, MDF, boards" },
@@ -1840,6 +1851,7 @@ Please confirm availability and delivery options. Thank you!`;
         /* ── INIT ── */
 
         renderCategories();
+        loadProducts(); // ← add this
         renderAll();
         updateAccountUI();
         cookieConsent();
