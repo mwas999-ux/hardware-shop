@@ -1562,7 +1562,7 @@
         async function doLogin() {
             const identifier = document.getElementById("loginIdentifier").value.trim();
             const password = document.getElementById("loginPassword").value;
-            if (!identifier || !password) { alert("Please fill in all fields."); return; }
+            if (!identifier || !password) { showToast("Please fill in all fields.", 'error'); return; }
 
             const btn = document.getElementById("loginBtn");
             btn.classList.add("btn-loading");
@@ -1582,7 +1582,6 @@
                     return;
                 }
 
-                // Save JWT token and user info
                 localStorage.setItem("mw_token", data.token);
                 localStorage.setItem("mw_user", JSON.stringify(data.user));
                 currentUser = data.user;
@@ -1591,10 +1590,10 @@
                 showToast(`Welcome back, ${data.user.name}! 🎉`, 'success');
 
             } catch (e) {
-
+                showToast("Connection error. Please try again.", 'error');
             } finally {
                 btn.classList.remove("btn-loading");
-                btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Login'; showToast("Connection error. Please try again.", 'error');
+                btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Login';
             }
         }
 
