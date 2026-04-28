@@ -1394,6 +1394,7 @@
             <div class="modal-body">
 
                 <!-- LOGIN FORM -->
+                <!-- LOGIN FORM -->
                 <div id="loginForm">
                     <div class="form-group">
                         <label>Phone Number or Email</label>
@@ -1402,15 +1403,41 @@
                     <div class="form-group">
                         <label>Password</label>
                         <input type="password" id="loginPassword" placeholder="Enter your password">
+                        <div class="form-hint" style="text-align:right;margin-top:6px">
+                            <span style="color:var(--accent);cursor:pointer;font-weight:600"
+                                onclick="showForgotPassword()">Forgot password?</span>
+                        </div>
                     </div>
                     <button class="btn btn-primary" style="width:100%;justify-content:center;margin-bottom:12px"
                         id="loginBtn" onclick="doLogin()">
                         <i class="fa-solid fa-right-to-bracket"></i> Login
                     </button>
                     <div class="auth-divider">or</div>
+                    <a href="https://hardware-shop-ksvk.onrender.com/auth/google" class="btn"
+                        style="width:100%;justify-content:center;background:#fff;border:1.5px solid #e5e7eb;color:#111;margin-top:12px;border-radius:14px;padding:13px">
+                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                            style="width:20px;height:20px"> Sign in with Google
+                    </a>
                     <p style="text-align:center;font-size:.88rem;color:var(--muted);margin-top:12px">
                         Don't have an account? <span style="color:var(--accent);cursor:pointer;font-weight:700"
                             onclick="switchTab('register')">Register here</span>
+                    </p>
+                </div>
+
+                <!-- FORGOT PASSWORD FORM -->
+                <div id="forgotForm" style="display:none">
+                    <div class="form-group">
+                        <label>Enter your Email Address</label>
+                        <input type="email" id="forgotEmail" placeholder="yourname@email.com">
+                        <div class="form-hint">We'll send a password reset link to this email</div>
+                    </div>
+                    <button class="btn btn-primary" style="width:100%;justify-content:center;margin-bottom:12px"
+                        id="forgotBtn" onclick="doForgotPassword()">
+                        <i class="fa-solid fa-envelope"></i> Send Reset Link
+                    </button>
+                    <p style="text-align:center;font-size:.88rem;color:var(--muted);margin-top:12px">
+                        Remember your password? <span style="color:var(--accent);cursor:pointer;font-weight:700"
+                            onclick="showLoginForm()">Login here</span>
                     </p>
                 </div>
 
@@ -1567,6 +1594,43 @@
             document.getElementById("registerTab").classList.toggle("active", tab === "register");
             document.getElementById("modalTitle").textContent = tab === "login" ? "Welcome Back" : "Create Account";
             document.getElementById("verifyBox").classList.remove("show");
+            function showForgotPassword() {
+                document.getElementById("loginForm").style.display = "none";
+                document.getElementById("forgotForm").style.display = "block";
+                document.getElementById("modalTitle").textContent = "Reset Password";
+            }
+
+            function showLoginForm() {
+                document.getElementById("forgotForm").style.display = "none";
+                document.getElementById("loginForm").style.display = "block";
+                document.getElementById("modalTitle").textContent = "Welcome Back";
+            }
+
+            async function doForgotPassword() {
+                const email = document.getElementById("forgotEmail").value.trim();
+                if (!email) { showToast("Please enter your email.", 'error'); return; }
+
+                const btn = document.getElementById("forgotBtn");
+                btn.classList.add("btn-loading");
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+
+                try {
+                    const res = await fetch(`${API}/auth/forgot-password`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email })
+                    });
+                    const data = await res.json();
+                    if (!res.ok) { showToast(data.error || "Failed to send reset email.", 'error'); return; }
+                    showToast("Reset link sent! Check your email 📧", 'success');
+                    setTimeout(() => { showLoginForm(); closeAuth(); }, 2000);
+                } catch (e) {
+                    showToast("Connection error. Please try again.", 'error');
+                } finally {
+                    btn.classList.remove("btn-loading");
+                    btn.innerHTML = '<i class="fa-solid fa-envelope"></i> Send Reset Link';
+                }
+            }
         }
 
         /* ── LOGIN — calls real backend ── */
@@ -1848,10 +1912,34 @@ Please confirm availability and delivery options. Thank you!`;
             document.body.appendChild(toast);
             setTimeout(() => toast.remove(), 3500);
         }
-        /* ── INIT ── */
+        // Handle Google OAuth redirect
+        function handleGoogleRedirect() {
+            const params = new URLSearchParams(window.location.search);
+            const token = params.get('token');
+            const name = params.get('name');
+            const email = params.get('email');
+            const error = params.get('error');
 
+            if (error) {
+                showToast("Google login failed. Please try again.", 'error');
+                return;
+            }
+
+            if (token && name) {
+                localStorage.setItem("mw_token", token);
+                const user = { name: decodeURIComponent(name), email: decodeURIComponent(email), phone: '' };
+                localStorage.setItem("mw_user", JSON.stringify(user));
+                currentUser = user;
+                updateAccountUI();
+                showToast(`Welcome, ${user.name}! 🎉`, 'success');
+                // Clean URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        }
+        /* ── INIT ── */
+        handleGoogleRedirect();
         renderCategories();
-        loadProducts(); // ← add this
+        loadProducts();
         renderAll();
         updateAccountUI();
         cookieConsent();
