@@ -206,7 +206,78 @@
         }
 
         .search-wrap {
-            position: relative
+            .search-wrap {
+                position: relative
+            }
+
+            .search-dropdown {
+                position: absolute;
+                top: calc(100% + 8px);
+                left: 0;
+                right: 0;
+                background: #fff;
+                border-radius: 18px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, .15);
+                border: 1px solid var(--line);
+                z-index: 2000;
+                max-height: 420px;
+                overflow-y: auto;
+                display: none;
+            }
+
+            .search-dropdown.show {
+                display: block;
+            }
+
+            .search-result-item {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                padding: 12px 16px;
+                cursor: pointer;
+                transition: background .2s;
+                border-bottom: 1px solid var(--line);
+            }
+
+            .search-result-item:last-child {
+                border-bottom: none;
+            }
+
+            .search-result-item:hover {
+                background: var(--soft);
+            }
+
+            .search-result-item img {
+                width: 52px;
+                height: 52px;
+                object-fit: contain;
+                border-radius: 10px;
+                background: #f5f5f5;
+                padding: 4px;
+            }
+
+            .search-result-item .info strong {
+                display: block;
+                font-size: .95rem;
+            }
+
+            .search-result-item .info span {
+                font-size: .82rem;
+                color: var(--muted);
+            }
+
+            .search-result-item .info .s-price {
+                color: var(--accent);
+                font-weight: 700;
+                font-size: .9rem;
+            }
+
+            .search-no-result {
+                padding: 20px;
+                text-align: center;
+                color: var(--muted);
+                font-size: .92rem;
+            }
         }
 
         .search {
@@ -1099,48 +1170,49 @@
                     <div class="logo-mark"><i class="fa-solid fa-hammer"></i></div>
                     <span>MWANGI HARDWARE<small>Building Kenya Starts Here</small></span>
                 </a>
-                <div class="search-wrap">
+                <<div class="search-wrap">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input id="searchInput" class="search" type="text"
                         placeholder="Search products, brands, tools, materials..." />
-                </div>
-                <div class="actions">
-                    <button class="action" id="accountBtn" type="button"><i class="fa-regular fa-user"></i><span
-                            id="accountLabel">Login</span></button>
-                    <a class="action" href="#contact"><i class="fa-solid fa-phone"></i><span>Contact</span></a>
-                    <button class="action" id="cartBtn" type="button"><i
-                            class="fa-solid fa-cart-shopping"></i><span>Cart</span><span id="cartCount"
-                            class="count">0</span></button>
-                </div>
+                    <div class="search-dropdown" id="searchDropdown"></div>
             </div>
-            <div class="nav">
-                <a href="#categories">Tools</a><a href="#categories">Building Materials</a><a
-                    href="#categories">Plumbing</a>
-                <a href="#categories">Electrical</a><a href="#categories">Paint & Finishes</a>
-                <a href="#categories">Tiles & Flooring</a><a href="#categories">Kitchen & Bathroom</a>
+            <div class="actions">
+                <button class="action" id="accountBtn" type="button"><i class="fa-regular fa-user"></i><span
+                        id="accountLabel">Login</span></button>
+                <a class="action" href="#contact"><i class="fa-solid fa-phone"></i><span>Contact</span></a>
+                <button class="action" id="cartBtn" type="button"><i
+                        class="fa-solid fa-cart-shopping"></i><span>Cart</span><span id="cartCount"
+                        class="count">0</span></button>
             </div>
-            <button class="burger" id="burgerBtn"><i class="fa-solid fa-bars"></i></button>
-            <div class="mobile-nav" id="mobileNav" style="display:none">
-                <a href="#categories">Tools</a>
-                <a href="#categories">Building Materials</a>
-                <a href="#categories">Plumbing</a>
-                <a href="#categories">Electrical</a>
-                <a href="#categories">Paint & Finishes</a>
-                <a href="#categories">Tiles & Flooring</a>
-                <a href="#categories">Kitchen & Bathroom</a>
-                <hr style="border:none;border-top:1px solid #e5e7eb;margin:4px 0">
-                <a href="#" onclick="openAuth();document.getElementById('mobileNav').style.display='none'">
-                    <i class="fa-regular fa-user" style="color:var(--accent)"></i> Login / Account
-                </a>
-                <a href="#contact" onclick="document.getElementById('mobileNav').style.display='none'">
-                    <i class="fa-solid fa-phone" style="color:var(--accent)"></i> Contact
-                </a>
-                <a href="#" onclick="openCart();document.getElementById('mobileNav').style.display='none'">
-                    <i class="fa-solid fa-cart-shopping" style="color:var(--accent)"></i> Cart
-                    <span id="mobileCartCount"
-                        style="background:var(--accent2);color:#fff;border-radius:999px;padding:2px 8px;font-size:.75rem;font-weight:800;margin-left:4px">0</span>
-                </a>
-            </div>
+        </div>
+        <div class="nav">
+            <a href="#categories">Tools</a><a href="#categories">Building Materials</a><a
+                href="#categories">Plumbing</a>
+            <a href="#categories">Electrical</a><a href="#categories">Paint & Finishes</a>
+            <a href="#categories">Tiles & Flooring</a><a href="#categories">Kitchen & Bathroom</a>
+        </div>
+        <button class="burger" id="burgerBtn"><i class="fa-solid fa-bars"></i></button>
+        <div class="mobile-nav" id="mobileNav" style="display:none">
+            <a href="#categories">Tools</a>
+            <a href="#categories">Building Materials</a>
+            <a href="#categories">Plumbing</a>
+            <a href="#categories">Electrical</a>
+            <a href="#categories">Paint & Finishes</a>
+            <a href="#categories">Tiles & Flooring</a>
+            <a href="#categories">Kitchen & Bathroom</a>
+            <hr style="border:none;border-top:1px solid #e5e7eb;margin:4px 0">
+            <a href="#" onclick="openAuth();document.getElementById('mobileNav').style.display='none'">
+                <i class="fa-regular fa-user" style="color:var(--accent)"></i> Login / Account
+            </a>
+            <a href="#contact" onclick="document.getElementById('mobileNav').style.display='none'">
+                <i class="fa-solid fa-phone" style="color:var(--accent)"></i> Contact
+            </a>
+            <a href="#" onclick="openCart();document.getElementById('mobileNav').style.display='none'">
+                <i class="fa-solid fa-cart-shopping" style="color:var(--accent)"></i> Cart
+                <span id="mobileCartCount"
+                    style="background:var(--accent2);color:#fff;border-radius:999px;padding:2px 8px;font-size:.75rem;font-weight:800;margin-left:4px">0</span>
+            </a>
+        </div>
         </div>
     </header>
 
@@ -1871,7 +1943,49 @@
         document.getElementById("closeCart").onclick = closeCart;
         overlay.onclick = closeCart;
 
-        document.getElementById("searchInput").addEventListener("input", e => { state.search = e.target.value; renderAll(); });
+        document.getElementById("searchInput").addEventListener("input", e => {
+            const query = e.target.value.trim();
+            state.search = query;
+            renderAll();
+            const dropdown = document.getElementById("searchDropdown");
+            if (!query || query.length < 1) {
+                dropdown.classList.remove("show");
+                dropdown.innerHTML = "";
+                return;
+            }
+            const matches = products.filter(p =>
+                (p.name + " " + p.category).toLowerCase().includes(query.toLowerCase())
+            ).slice(0, 6);
+            if (matches.length === 0) {
+                dropdown.innerHTML = `<div class="search-no-result">No products found for "<strong>${query}</strong>"</div>`;
+            } else {
+                dropdown.innerHTML = matches.map(p => `
+            <div class="search-result-item" onclick="handleSearchSelect(${p.id})">
+                <img src="${p.img}" alt="${p.name}" onerror="this.src='images/Claw Hammer 16oz.jpg'">
+                <div class="info">
+                    <strong>${p.name}</strong>
+                    <span>${p.category}</span>
+                    <div class="s-price">KES ${Number(p.price).toLocaleString()}</div>
+                </div>
+            </div>
+        `).join("");
+            }
+            dropdown.classList.add("show");
+        });
+
+        document.addEventListener("click", e => {
+            if (!document.querySelector(".search-wrap").contains(e.target)) {
+                document.getElementById("searchDropdown").classList.remove("show");
+            }
+        });
+
+        window.handleSearchSelect = function (id) {
+            addToCart(id);
+            document.getElementById("searchInput").value = "";
+            document.getElementById("searchDropdown").classList.remove("show");
+            state.search = "";
+            renderAll();
+        };
         document.getElementById("priceFilter").addEventListener("input", e => { state.maxPrice = e.target.value; renderAll(); });
         document.getElementById("categoryFilter").addEventListener("change", e => { state.category = e.target.value; renderAll(); });
         document.getElementById("brandFilter").addEventListener("change", e => { state.brand = e.target.value; renderAll(); });
