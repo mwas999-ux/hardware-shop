@@ -235,7 +235,7 @@ app.post('/auth/forgot-password', async (req, res) => {
             return res.status(404).json({ error: 'No account found with this email' });
         }
         const resetToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-        const resetExpires = new Date(Date.now() + 3600000); // 1 hour
+        const resetExpires = new Date(Date.now() + 3600000);
         await pool.query(
             'UPDATE users SET reset_token = $1, reset_expires = $2 WHERE email = $3',
             [resetToken, resetExpires, email]
@@ -252,12 +252,13 @@ app.post('/auth/forgot-password', async (req, res) => {
           <a href="${resetUrl}" style="display:inline-block;background:#ff6a00;color:white;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:bold;margin:16px 0">
             Reset My Password
           </a>
-          <p style="color:#888;font-size:13px">If you didn't request this, ignore this email.</p>
         </div>
       `
         });
+        console.log('Email sent successfully to:', email);
         res.json({ message: 'Password reset link sent to your email!' });
     } catch (err) {
+        console.log('Forgot password error:', err);
         res.status(500).json({ error: 'Failed to send reset email. Please try again.' });
     }
 });
