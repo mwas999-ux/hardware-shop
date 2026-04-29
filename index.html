@@ -126,9 +126,9 @@
             color: #fff
         }
 
-        .btn-danger {
-            background: #ef4444;
-            color: #fff
+        .btn-loading {
+            opacity: 0.7;
+            pointer-events: none
         }
 
         .badge {
@@ -826,7 +826,6 @@
             margin: 0
         }
 
-        /* AUTH MODAL */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -860,6 +859,18 @@
             to {
                 opacity: 1;
                 transform: translateY(0)
+            }
+        }
+
+        @keyframes slideUpToast {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0)
             }
         }
 
@@ -987,12 +998,6 @@
             right: 0
         }
 
-        /* loading spinner inside btn */
-        .btn-loading {
-            opacity: 0.7;
-            pointer-events: none
-        }
-
         .burger {
             display: none
         }
@@ -1030,18 +1035,6 @@
 
             .shop-panel {
                 position: static
-            }
-        }
-
-        @keyframes slideUpToast {
-            from {
-                opacity: 0;
-                transform: translateX(-50%) translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
             }
         }
 
@@ -1394,7 +1387,6 @@
             <div class="modal-body">
 
                 <!-- LOGIN FORM -->
-                <!-- LOGIN FORM -->
                 <div id="loginForm">
                     <div class="form-group">
                         <label>Phone Number or Email</label>
@@ -1487,19 +1479,27 @@
     </div>
 
     <script>
-        /* ── CONFIG ── */
         const API = 'https://hardware-shop-ksvk.onrender.com';
 
-        /* ── PRODUCTS DATA ── */
-        /* ── PRODUCTS DATA ── */
+        /* ── TOAST ── */
+        function showToast(message, type = 'success') {
+            const existing = document.getElementById('toast');
+            if (existing) existing.remove();
+            const toast = document.createElement('div');
+            toast.id = 'toast';
+            toast.style.cssText = `position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:${type === 'success' ? '#16a34a' : '#ef4444'};color:white;padding:14px 28px;border-radius:14px;font-family:Poppins,sans-serif;font-weight:600;font-size:.95rem;box-shadow:0 10px 30px rgba(0,0,0,.2);z-index:9999;animation:slideUpToast .3s ease;`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3500);
+        }
+
+        /* ── PRODUCTS ── */
         let products = [];
 
         async function loadProducts() {
             try {
                 const res = await fetch(`${API}/products`);
                 products = await res.json();
-
-                // Add missing fields for display
                 const badges = ['SALE', 'NEW', 'HOT'];
                 const imgs = {
                     'Tools': 'https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=900&q=80',
@@ -1512,7 +1512,6 @@
                     'Wood Products': 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=900&q=80',
                     'Electrical': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80',
                 };
-
                 products = products.map((p, i) => ({
                     ...p,
                     rating: (4.3 + Math.random() * 0.7).toFixed(1) * 1,
@@ -1520,9 +1519,7 @@
                     img: imgs[p.category] || 'https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=900&q=80',
                     desc: `Quality ${p.category.toLowerCase()} product for construction and building use.`
                 }));
-
                 renderAll();
-
             } catch (e) {
                 console.log('Failed to load products:', e);
                 renderAll();
@@ -1542,11 +1539,9 @@
             { name: "Building Materials", icon: "fa-building", desc: "Cement, iron sheets, roofing" },
         ];
 
-        /* ── STATE ── */
         const state = { cart: [], search: "", category: "all", brand: "all", sort: "best", maxPrice: "" };
         let currentUser = JSON.parse(localStorage.getItem("mw_user") || "null");
 
-        /* ── DOM REFS ── */
         const featuredGrid = document.getElementById("featuredGrid");
         const shopGrid = document.getElementById("shopGrid");
         const categoryGrid = document.getElementById("categoryGrid");
@@ -1587,53 +1582,57 @@
         document.getElementById("accountBtn").onclick = openAuth;
         document.getElementById("authModal").addEventListener("click", function (e) { if (e.target === this) closeAuth(); });
 
+        /* ── SWITCH TAB ── */
         function switchTab(tab) {
             document.getElementById("loginForm").style.display = tab === "login" ? "block" : "none";
+            document.getElementById("forgotForm").style.display = "none";
             document.getElementById("registerForm").style.display = tab === "register" ? "block" : "none";
             document.getElementById("loginTab").classList.toggle("active", tab === "login");
             document.getElementById("registerTab").classList.toggle("active", tab === "register");
             document.getElementById("modalTitle").textContent = tab === "login" ? "Welcome Back" : "Create Account";
             document.getElementById("verifyBox").classList.remove("show");
-            function showForgotPassword() {
-                document.getElementById("loginForm").style.display = "none";
-                document.getElementById("forgotForm").style.display = "block";
-                document.getElementById("modalTitle").textContent = "Reset Password";
-            }
+        }
 
-            function showLoginForm() {
-                document.getElementById("forgotForm").style.display = "none";
-                document.getElementById("loginForm").style.display = "block";
-                document.getElementById("modalTitle").textContent = "Welcome Back";
-            }
+        /* ── FORGOT PASSWORD ── */
+        function showForgotPassword() {
+            document.getElementById("loginForm").style.display = "none";
+            document.getElementById("forgotForm").style.display = "block";
+            document.getElementById("modalTitle").textContent = "Reset Password";
+        }
 
-            async function doForgotPassword() {
-                const email = document.getElementById("forgotEmail").value.trim();
-                if (!email) { showToast("Please enter your email.", 'error'); return; }
+        function showLoginForm() {
+            document.getElementById("forgotForm").style.display = "none";
+            document.getElementById("loginForm").style.display = "block";
+            document.getElementById("modalTitle").textContent = "Welcome Back";
+        }
 
-                const btn = document.getElementById("forgotBtn");
-                btn.classList.add("btn-loading");
-                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+        async function doForgotPassword() {
+            const email = document.getElementById("forgotEmail").value.trim();
+            if (!email) { showToast("Please enter your email.", 'error'); return; }
 
-                try {
-                    const res = await fetch(`${API}/auth/forgot-password`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ email })
-                    });
-                    const data = await res.json();
-                    if (!res.ok) { showToast(data.error || "Failed to send reset email.", 'error'); return; }
-                    showToast("Reset link sent! Check your email 📧", 'success');
-                    setTimeout(() => { showLoginForm(); closeAuth(); }, 2000);
-                } catch (e) {
-                    showToast("Connection error. Please try again.", 'error');
-                } finally {
-                    btn.classList.remove("btn-loading");
-                    btn.innerHTML = '<i class="fa-solid fa-envelope"></i> Send Reset Link';
-                }
+            const btn = document.getElementById("forgotBtn");
+            btn.classList.add("btn-loading");
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+
+            try {
+                const res = await fetch(`${API}/auth/forgot-password`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+                const data = await res.json();
+                if (!res.ok) { showToast(data.error || "Failed to send reset email.", 'error'); return; }
+                showToast("Reset link sent! Check your email 📧", 'success');
+                setTimeout(() => { showLoginForm(); closeAuth(); }, 2000);
+            } catch (e) {
+                showToast("Connection error. Please try again.", 'error');
+            } finally {
+                btn.classList.remove("btn-loading");
+                btn.innerHTML = '<i class="fa-solid fa-envelope"></i> Send Reset Link';
             }
         }
 
-        /* ── LOGIN — calls real backend ── */
+        /* ── LOGIN ── */
         async function doLogin() {
             const identifier = document.getElementById("loginIdentifier").value.trim();
             const password = document.getElementById("loginPassword").value;
@@ -1649,21 +1648,14 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ identifier, password })
                 });
-
                 const data = await res.json();
-
-                if (!res.ok) {
-                    showToast(data.error || "Login failed. Please try again.", 'error');
-                    return;
-                }
-
+                if (!res.ok) { showToast(data.error || "Login failed. Please try again.", 'error'); return; }
                 localStorage.setItem("mw_token", data.token);
                 localStorage.setItem("mw_user", JSON.stringify(data.user));
                 currentUser = data.user;
                 closeAuth();
                 updateAccountUI();
                 showToast(`Welcome back, ${data.user.name}! 🎉`, 'success');
-
             } catch (e) {
                 showToast("Connection error. Please try again.", 'error');
             } finally {
@@ -1672,15 +1664,15 @@
             }
         }
 
-        /* ── REGISTER — calls real backend ── */
+        /* ── REGISTER ── */
         async function doRegister() {
             const name = document.getElementById("regName").value.trim();
             const phone = document.getElementById("regPhone").value.trim();
             const email = document.getElementById("regEmail").value.trim();
             const password = document.getElementById("regPassword").value;
 
-            if (!name || !phone || !email || !password) { alert("Please fill in all fields."); return; }
-            if (password.length < 6) { alert("Password must be at least 6 characters."); return; }
+            if (!name || !phone || !email || !password) { showToast("Please fill in all fields.", 'error'); return; }
+            if (password.length < 6) { showToast("Password must be at least 6 characters.", 'error'); return; }
 
             const btn = document.getElementById("registerBtn");
             btn.classList.add("btn-loading");
@@ -1692,30 +1684,38 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ name, phone, email, password })
                 });
-
                 const data = await res.json();
-
-                if (!res.ok) {
-                    return;
-                    showToast(data.error || "Registration failed. Please try again.", 'error');
-                }
-
-                // Show success message
-                const verifyBox = document.getElementById("verifyBox");
+                if (!res.ok) { showToast(data.error || "Registration failed. Please try again.", 'error'); return; }
                 document.getElementById("verifyTarget").textContent = "email";
-                verifyBox.classList.add("show");
-
-                // Clear form
+                document.getElementById("verifyBox").classList.add("show");
                 document.getElementById("regName").value = "";
                 document.getElementById("regPhone").value = "";
                 document.getElementById("regEmail").value = "";
                 document.getElementById("regPassword").value = "";
-
             } catch (e) {
-                alert("Connection error. Please check your internet and try again.");
+                showToast("Connection error. Please try again.", 'error');
             } finally {
                 btn.classList.remove("btn-loading");
                 btn.innerHTML = '<i class="fa-solid fa-user-plus"></i> Create Account';
+            }
+        }
+
+        /* ── GOOGLE REDIRECT ── */
+        function handleGoogleRedirect() {
+            const params = new URLSearchParams(window.location.search);
+            const token = params.get('token');
+            const name = params.get('name');
+            const email = params.get('email');
+            const error = params.get('error');
+            if (error) { showToast("Google login failed. Please try again.", 'error'); return; }
+            if (token && name) {
+                localStorage.setItem("mw_token", token);
+                const user = { name: decodeURIComponent(name), email: decodeURIComponent(email), phone: '' };
+                localStorage.setItem("mw_user", JSON.stringify(user));
+                currentUser = user;
+                updateAccountUI();
+                showToast(`Welcome, ${user.name}! 🎉`, 'success');
+                window.history.replaceState({}, document.title, window.location.pathname);
             }
         }
 
@@ -1742,7 +1742,7 @@
             <article class="product">
                 <div class="product-media">
                     <div class="tag"><span class="badge ${p.badge.toLowerCase()}">${p.badge}</span></div>
-                    <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/400x300?text=${encodeURIComponent(p.name)}'">
+                    <img src="${p.img}" alt="${p.name}" onerror="this.style.display='none'">
                 </div>
                 <div class="product-body">
                     <h3>${p.name}</h3>
@@ -1760,7 +1760,7 @@
 
         function getFiltered() {
             return products.filter(p =>
-                (!state.search || (p.name + " " + p.category + " " + p.brand + " " + (p.desc || "")).toLowerCase().includes(state.search.toLowerCase())) &&
+                (!state.search || (p.name + " " + p.category + " " + (p.desc || "")).toLowerCase().includes(state.search.toLowerCase())) &&
                 (state.category === "all" || p.category === state.category) &&
                 (state.brand === "all" || p.brand === state.brand) &&
                 (!state.maxPrice || p.price <= Number(state.maxPrice))
@@ -1823,28 +1823,12 @@
 
         /* ── WHATSAPP CHECKOUT ── */
         document.getElementById("checkoutBtn").onclick = function () {
-            if (state.cart.length === 0) { alert("Your cart is empty! Add some products first."); return; }
-
+            if (state.cart.length === 0) { showToast("Your cart is empty! Add some products first.", 'error'); return; }
             const total = state.cart.reduce((a, b) => a + (b.price * b.qty), 0);
-            const itemsList = state.cart.map(item =>
-                `  • ${item.name} × ${item.qty} = KES ${(item.price * item.qty).toLocaleString()}`
-            ).join("\n");
-
+            const itemsList = state.cart.map(item => `  • ${item.name} × ${item.qty} = KES ${(item.price * item.qty).toLocaleString()}`).join("\n");
             const customerName = currentUser ? currentUser.name : "Customer";
             const customerPhone = currentUser ? `\nMy phone: ${currentUser.phone}` : "";
-
-            const message =
-                `Hello Mwangi Hardware! 👋
-
-My name is *${customerName}*.${customerPhone}
-
-🛒 *My Order:*
-${itemsList}
-
-💰 *Total: KES ${total.toLocaleString()}*
-
-Please confirm availability and delivery options. Thank you!`;
-
+            const message = `Hello Mwangi Hardware! 👋\n\nMy name is *${customerName}*.${customerPhone}\n\n🛒 *My Order:*\n${itemsList}\n\n💰 *Total: KES ${total.toLocaleString()}*\n\nPlease confirm availability and delivery options. Thank you!`;
             window.open(`https://wa.me/254799747941?text=${encodeURIComponent(message)}`, "_blank");
         };
 
@@ -1893,49 +1877,7 @@ Please confirm availability and delivery options. Thank you!`;
             document.getElementById("acceptCookies").onclick = () => { localStorage.setItem("mw_cookie", "accepted"); document.getElementById("cookieBanner").classList.remove("show"); };
             document.getElementById("rejectCookies").onclick = () => { localStorage.setItem("mw_cookie", "rejected"); document.getElementById("cookieBanner").classList.remove("show"); };
         }
-        function showToast(message, type = 'success') {
-            const existing = document.getElementById('toast');
-            if (existing) existing.remove();
 
-            const toast = document.createElement('div');
-            toast.id = 'toast';
-            toast.style.cssText = `
-        position:fixed; bottom:30px; left:50%; transform:translateX(-50%);
-        background:${type === 'success' ? '#16a34a' : '#ef4444'};
-        color:white; padding:14px 28px; border-radius:14px;
-        font-family:Poppins,sans-serif; font-weight:600; font-size:.95rem;
-        box-shadow:0 10px 30px rgba(0,0,0,.2); z-index:9999;
-        animation:slideUpToast .3s ease;
-    `;
-            toast.textContent = message;
-
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 3500);
-        }
-        // Handle Google OAuth redirect
-        function handleGoogleRedirect() {
-            const params = new URLSearchParams(window.location.search);
-            const token = params.get('token');
-            const name = params.get('name');
-            const email = params.get('email');
-            const error = params.get('error');
-
-            if (error) {
-                showToast("Google login failed. Please try again.", 'error');
-                return;
-            }
-
-            if (token && name) {
-                localStorage.setItem("mw_token", token);
-                const user = { name: decodeURIComponent(name), email: decodeURIComponent(email), phone: '' };
-                localStorage.setItem("mw_user", JSON.stringify(user));
-                currentUser = user;
-                updateAccountUI();
-                showToast(`Welcome, ${user.name}! 🎉`, 'success');
-                // Clean URL
-                window.history.replaceState({}, document.title, window.location.pathname);
-            }
-        }
         /* ── INIT ── */
         handleGoogleRedirect();
         renderCategories();
