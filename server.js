@@ -241,6 +241,9 @@ app.post('/auth/forgot-password', async (req, res) => {
             [resetToken, resetExpires, email]
         );
         const resetUrl = `${process.env.FRONTEND_URL}/reset-password.html?token=${resetToken}`;
+        console.log('Attempting to send email...');
+        console.log('EMAIL_USER:', process.env.EMAIL_USER);
+        console.log('EMAIL_PASS exists:', !!process.env.EMAIL_PASS);
         await transporter.sendMail({
             from: `"Mwangi Hardware" <${process.env.EMAIL_USER}>`,
             to: email,
