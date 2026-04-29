@@ -1121,9 +1121,25 @@
             </div>
             <button class="burger" id="burgerBtn"><i class="fa-solid fa-bars"></i></button>
             <div class="mobile-nav" id="mobileNav" style="display:none">
-                <a href="#categories">Tools</a><a href="#categories">Building Materials</a><a
-                    href="#categories">Plumbing</a>
-                <a href="#categories">Electrical</a><a href="#categories">Paint & Finishes</a>
+                <a href="#categories">Tools</a>
+                <a href="#categories">Building Materials</a>
+                <a href="#categories">Plumbing</a>
+                <a href="#categories">Electrical</a>
+                <a href="#categories">Paint & Finishes</a>
+                <a href="#categories">Tiles & Flooring</a>
+                <a href="#categories">Kitchen & Bathroom</a>
+                <hr style="border:none;border-top:1px solid #e5e7eb;margin:4px 0">
+                <a href="#" onclick="openAuth();document.getElementById('mobileNav').style.display='none'">
+                    <i class="fa-regular fa-user" style="color:var(--accent)"></i> Login / Account
+                </a>
+                <a href="#contact" onclick="document.getElementById('mobileNav').style.display='none'">
+                    <i class="fa-solid fa-phone" style="color:var(--accent)"></i> Contact
+                </a>
+                <a href="#" onclick="openCart();document.getElementById('mobileNav').style.display='none'">
+                    <i class="fa-solid fa-cart-shopping" style="color:var(--accent)"></i> Cart
+                    <span id="mobileCartCount"
+                        style="background:var(--accent2);color:#fff;border-radius:999px;padding:2px 8px;font-size:.75rem;font-weight:800;margin-left:4px">0</span>
+                </a>
             </div>
         </div>
     </header>
