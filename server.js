@@ -231,7 +231,7 @@ app.post('/auth/forgot-password', async (req, res) => {
             'UPDATE users SET reset_token = $1, reset_expires = $2 WHERE email = $3',
             [resetToken, resetExpires, email]
         );
-        const resetUrl = `${process.env.FRONTEND_URL}/reset-password.html?token=${resetToken}`;
+        const resetUrl = `${process.env.FRONTEND_URL}/hardware-shop/reset-password.html?token=${resetToken}`;
         console.log('Attempting to send email via Resend...');
         await resend.emails.send({
             from: 'onboarding@resend.dev',
