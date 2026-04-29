@@ -6,7 +6,7 @@ const cors = require('cors');
 const path = require('path');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
@@ -54,17 +54,8 @@ pool.query(`
 `).then(() => console.log('Tables ready!'))
     .catch(err => console.log('Table error:', err));
 
-// ── EMAIL SETUP ──
-const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
-    family: 4,
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-    }
-});;
+// ── EMAIL SETUP (Resend) ──
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // ── JWT MIDDLEWARE ──
 function authMiddleware(req, res, next) {
@@ -89,18 +80,15 @@ passport.use(new GoogleStrategy({
         const name = profile.displayName;
         const googleId = profile.id;
 
-        // Check if user exists
         let result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
 
         if (result.rows.length > 0) {
-            // Update google_id if not set
             if (!result.rows[0].google_id) {
                 await pool.query('UPDATE users SET google_id = $1, is_verified = TRUE WHERE email = $2', [googleId, email]);
             }
             return done(null, result.rows[0]);
         }
 
-        // Create new user
         const newUser = await pool.query(
             'INSERT INTO users (name, email, google_id, is_verified) VALUES ($1, $2, $3, TRUE) RETURNING *',
             [name, email, googleId]
@@ -144,8 +132,8 @@ app.post('/auth/register', async (req, res) => {
             [name, phone, email, hashedPassword, verifyToken]
         );
         const verifyUrl = `https://hardware-shop-ksvk.onrender.com/auth/verify/${verifyToken}`;
-        await transporter.sendMail({
-            from: `"Mwangi Hardware" <${process.env.EMAIL_USER}>`,
+        await resend.emails.send({
+            from: 'onboarding@resend.dev',
             to: email,
             subject: '✅ Verify your Mwangi Hardware account',
             html: `
@@ -244,11 +232,9 @@ app.post('/auth/forgot-password', async (req, res) => {
             [resetToken, resetExpires, email]
         );
         const resetUrl = `${process.env.FRONTEND_URL}/reset-password.html?token=${resetToken}`;
-        console.log('Attempting to send email...');
-        console.log('EMAIL_USER:', process.env.EMAIL_USER);
-        console.log('EMAIL_PASS exists:', !!process.env.EMAIL_PASS);
-        await transporter.sendMail({
-            from: `"Mwangi Hardware" <${process.env.EMAIL_USER}>`,
+        console.log('Attempting to send email via Resend...');
+        await resend.emails.send({
+            from: 'onboarding@resend.dev',
             to: email,
             subject: '🔐 Reset your Mwangi Hardware password',
             html: `
@@ -305,7 +291,6 @@ app.get('/auth/google/callback',
             process.env.JWT_SECRET,
             { expiresIn: '7d' }
         );
-        // Redirect to frontend with token
         res.redirect(`${process.env.FRONTEND_URL}?token=${token}&name=${encodeURIComponent(user.name)}&email=${encodeURIComponent(user.email)}`);
     }
 );
