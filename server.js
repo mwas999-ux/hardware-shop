@@ -226,6 +226,7 @@ app.post('/auth/login', async (req, res) => {
 
 // FORGOT PASSWORD
 app.post('/auth/forgot-password', async (req, res) => {
+    console.log('Forgot password request received for:', req.body.email);
     const { email } = req.body;
     if (!email) return res.status(400).json({ error: 'Email is required' });
     try {
