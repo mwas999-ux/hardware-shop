@@ -126,55 +126,55 @@ app.post('/auth/register', async (req, res) => {
             return res.status(409).json({ error: 'Account with this email or phone already exists' });
         }
         const hashedPassword = await bcrypt.hash(password, 12);
-        const verifyToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+        const otpExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
         const result = await pool.query(
-            'INSERT INTO users (name, phone, email, password, verify_token) VALUES ($1, $2, $3, $4, $5) RETURNING id, name, email',
-            [name, phone, email, hashedPassword, verifyToken]
+            'INSERT INTO users (name, phone, email, password, verify_token, reset_expires) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id, name, email',
+            [name, phone, email, hashedPassword, otp, otpExpires]
         );
-        const verifyUrl = `https://hardware-shop-ksvk.onrender.com/auth/verify/${verifyToken}`;
         await resend.emails.send({
             from: 'onboarding@resend.dev',
             to: email,
-            subject: '✅ Verify your Mwangi Hardware account',
+            subject: '✅ Your Mwangi Hardware verification code',
             html: `
         <div style="font-family:Arial,sans-serif;max-width:500px;margin:0 auto;padding:20px">
           <h2 style="color:#ff6a00">Welcome to Mwangi Hardware, ${name}! 🔨</h2>
-          <p>Please verify your email to get started.</p>
-          <a href="${verifyUrl}" style="display:inline-block;background:#ff6a00;color:white;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:bold;margin:16px 0">
-            ✅ Verify My Email
-          </a>
+          <p>Your verification code is:</p>
+          <div style="font-size:2.5rem;font-weight:bold;color:#ff6a00;letter-spacing:12px;margin:20px 0;text-align:center">${otp}</div>
+          <p style="color:#666">This code expires in <strong>10 minutes</strong>. Do not share it with anyone.</p>
         </div>
-      `
+    `
         });
-        res.status(201).json({ message: 'Account created! Please check your email to verify your account.' });
+        res.status(201).json({ message: 'Account created! Enter the OTP sent to your email.', email });
     } catch (err) {
         console.log('Register error:', err);
         res.status(500).json({ error: 'Registration failed. Please try again.' });
     }
 });
 
-// VERIFY EMAIL
-app.get('/auth/verify/:token', async (req, res) => {
-    const { token } = req.params;
+// VERIFY OTP
+app.post('/auth/verify-otp', async (req, res) => {
+    const { email, otp } = req.body;
+    if (!email || !otp) return res.status(400).json({ error: 'Email and OTP are required' });
     try {
         const result = await pool.query(
-            'UPDATE users SET is_verified = TRUE, verify_token = NULL WHERE verify_token = $1 RETURNING name',
-            [token]
+            'SELECT * FROM users WHERE email = $1 AND verify_token = $2 AND reset_expires > NOW()',
+            [email, otp]
         );
         if (result.rows.length === 0) {
-            return res.send('<h2>Invalid or expired verification link.</h2>');
+            return res.status(400).json({ error: 'Invalid or expired OTP. Please try again.' });
         }
-        res.send(`
-      <div style="font-family:Arial,sans-serif;text-align:center;padding:60px 20px">
-        <h2 style="color:#16a34a">✅ Email Verified Successfully!</h2>
-        <p>Welcome to Mwangi Hardware, ${result.rows[0].name}!</p>
-        <a href="${process.env.FRONTEND_URL}" style="color:#ff6a00;font-weight:bold">Go to Store →</a>
-      </div>
-    `);
+        await pool.query(
+            'UPDATE users SET is_verified = TRUE, verify_token = NULL, reset_expires = NULL WHERE email = $1',
+            [email]
+        );
+        res.json({ message: 'Email verified successfully! You can now login.' });
     } catch (err) {
-        res.status(500).send('<h2>Verification failed. Please try again.</h2>');
+        console.log('OTP verify error:', err);
+        res.status(500).json({ error: 'Verification failed. Please try again.' });
     }
 });
+
 
 // LOGIN
 app.post('/auth/login', async (req, res) => {

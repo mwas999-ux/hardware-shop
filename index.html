@@ -1537,17 +1537,17 @@
                         <label>Password</label>
                         <input type="password" id="regPassword" placeholder="Create a strong password (min 6 chars)">
                     </div>
-                    <div class="form-group">
-                        <label>Verify Account Via</label>
-                        <select id="verifyMethod"
-                            style="border-radius:14px;border:1.5px solid var(--line);padding:13px 14px;outline:none;width:100%;font-family:Poppins,sans-serif">
-                            <option value="email">Email (verification link)</option>
-                            <option value="phone">Phone (SMS code)</option>
-                        </select>
-                    </div>
+
                     <div class="verify-box" id="verifyBox">
-                        ✅ Account created! Please check your <span id="verifyTarget">email</span> to verify your account
-                        before logging in.
+                        <p>✅ A 6-digit code has been sent to your email. Enter it below:</p>
+                        <div class="form-group" style="margin-top:12px">
+                            <input type="text" id="otpInput" maxlength="6" placeholder="Enter 6-digit code"
+                                style="width:100%;padding:13px 16px;border-radius:14px;border:1.5px solid #ff6a00;outline:none;font-family:Poppins,sans-serif;font-size:1.2rem;text-align:center;letter-spacing:8px">
+                        </div>
+                        <button class="btn btn-primary" style="width:100%;justify-content:center" id="verifyOtpBtn"
+                            onclick="doVerifyOtp()">
+                            <i class="fa-solid fa-check"></i> Verify Code
+                        </button>
                     </div>
                     <button class="btn btn-primary" style="width:100%;justify-content:center;margin-bottom:12px"
                         id="registerBtn" onclick="doRegister()">
@@ -1764,7 +1764,34 @@
                 btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Login';
             }
         }
+        let pendingVerifyEmail = '';
 
+        async function doVerifyOtp() {
+            const otp = document.getElementById("otpInput").value.trim();
+            if (!otp || otp.length !== 6) { showToast("Please enter the 6-digit code.", 'error'); return; }
+
+            const btn = document.getElementById("verifyOtpBtn");
+            btn.classList.add("btn-loading");
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Verifying...';
+
+            try {
+                const res = await fetch(`${API}/auth/verify-otp`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: pendingVerifyEmail, otp })
+                });
+                const data = await res.json();
+                if (!res.ok) { showToast(data.error || "Invalid OTP.", 'error'); return; }
+                showToast("Email verified! You can now login. 🎉", 'success');
+                document.getElementById("verifyBox").classList.remove("show");
+                setTimeout(() => switchTab('login'), 1500);
+            } catch (e) {
+                showToast("Connection error. Please try again.", 'error');
+            } finally {
+                btn.classList.remove("btn-loading");
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Verify Code';
+            }
+        }
         /* ── REGISTER ── */
         async function doRegister() {
             const name = document.getElementById("regName").value.trim();
@@ -1787,7 +1814,8 @@
                 });
                 const data = await res.json();
                 if (!res.ok) { showToast(data.error || "Registration failed. Please try again.", 'error'); return; }
-                document.getElementById("verifyTarget").textContent = "email";
+                pendingVerifyEmail = email;
+                document.getElementById("otpInput").value = "";
                 document.getElementById("verifyBox").classList.add("show");
                 document.getElementById("regName").value = "";
                 document.getElementById("regPhone").value = "";
