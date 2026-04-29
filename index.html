@@ -1502,21 +1502,37 @@
                 products = await res.json();
                 const badges = ['SALE', 'NEW', 'HOT'];
                 const imgs = {
-                    'Tools': 'images/Angle Grinder 4.5 inch.jpg',
-                    'Building Materials': 'images/Corrugated Iron Sheet 30G.jpg',
-                    'Plumbing': 'images/uPVC Water Pipe 12 inch.jpg',
-                    'Kitchen & Bathroom': 'images/Wash Hand Basin.jpg',
-                    'Tiles & Flooring': 'images/60x60 Porcelain Floor Tiles.jpg',
-                    'Paint & Finishes': 'images/Weathershield Paint 4L.jpg',
-                    'Hardware Supplies': 'images/Steel Nails 4inch 1kg.jpg',
-                    'Wood Products': 'images/Cypress Timber 2x4.jpg',
-                    'Electrical': 'images/MCB Switch 32A.jpg',
+                    'Claw Hammer 16oz': 'images/Claw Hammer 16oz.jpg',
+                    'Electric Drill Machine': 'images/Electric Drill Machine.jpg',
+                    'Bamburi Cement 50kg': 'images/Bamburi Cement 50kg.png',
+                    'uPVC Water Pipe 1/2 inch': 'images/uPVC Water Pipe 12 inch.jpg',
+                    'Wash Hand Basin': 'images/Wash Hand Basin.jpg',
+                    'Tile Adhesive 20kg': 'images/Tile Adhesive 20kg.jpg',
+                    'Duracoat Paint 4L': 'images/Duracoat Paint 4L.png',
+                    'Screwdriver Set 6pc': 'images/Screwdriver Set 6pc.jpg',
+                    'Wheelbarrow': 'images/Wheelbarrow.jpg',
+                    'Padlock 60mm': 'images/Padlock 60mm.jpg',
+                    'Safety Gloves and Helmet': 'images/Safety Gloves and Helmet.jpg',
+                    'Safety Gloves and Helmet': 'images/Safety Gloves and Helmet.jpg',
+                    'MDF Board 18mm': 'images/MDF Board 18mm.jpg',
+                    'Angle Grinder 4.5 inch': 'images/Angle Grinder 4.5 inch.jpg',
+                    '2.5mm Cable 100M Roll': 'images/2.5mm Cable 100M Roll.jpg',
+                    'MCB Switch 32A': 'images/MCB Switch 32A.jpg',
+                    'Corrugated Iron Sheet 30G': 'images/Corrugated Iron Sheet 30G.jpg',
+                    '60x60 Porcelain Floor Tiles': 'images/60x60 Porcelain Floor Tiles.jpg',
+                    'Ball Valve Brass': 'images/Ball Valve Brass.jpg',
+                    'Barbed Wire 400M Roll': 'images/Barbed Wire 400M Roll.jpg',
+                    'Cypress Timber 2x4': 'images/Cypress Timber 2x4.jpg',
+                    'Weathershield Paint 4L': 'images/Weathershield Paint 4L.jpg',
+                    'Flush Tank Complete Set': 'images/Flush Tank Complete Set.jpg',
+                    'Steel Nails 4inch 1kg': 'images/Steel Nails 4inch 1kg.jpg',
+                    'Tape Measure 5M': 'images/Tape Measure 5M.jpg',
                 };
                 products = products.map((p, i) => ({
                     ...p,
                     rating: (4.3 + Math.random() * 0.7).toFixed(1) * 1,
                     badge: badges[i % 3],
-                    img: imgs[p.category] || 'https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=900&q=80',
+                    img: imgs[p.name] || 'images/Claw Hammer 16oz.jpg',
                     desc: `Quality ${p.category.toLowerCase()} product for construction and building use.`
                 }));
                 renderAll();
